@@ -1,9 +1,7 @@
+import StudentDirectory from "./StudentDirectory";
+
 function App() {
-  return (
-    <>
-      <p>Hello World</p>
-    </>
-  );
+  return <StudentDirectory />;
 }
 
 export default App;
