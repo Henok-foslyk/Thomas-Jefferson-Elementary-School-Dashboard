@@ -59,7 +59,7 @@ export default function StudentDirectory() {
                 <TableCell>
                   <strong>Email</strong>
                 </TableCell>
-                <TableCell align="center">
+                <TableCell>
                   <strong>Enrolled</strong>
                 </TableCell>
               </TableRow>
