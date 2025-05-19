@@ -9,6 +9,7 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
+import Navbar from "../components/Navbar.jsx";
 
 const students = [
   {
@@ -32,7 +33,7 @@ const students = [
 export default function StudentDirectory() {
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar />
 
       <Container maxWidth="md" sx={{ mt: 4 }}>
         <Typography variant="h5" align="center" gutterBottom>
