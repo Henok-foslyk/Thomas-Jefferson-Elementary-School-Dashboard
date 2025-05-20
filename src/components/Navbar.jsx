@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import './Navbar.css';
+import "./Navbar.css";
 
 function Navbar() {
   const location = useLocation();
@@ -18,16 +18,13 @@ function Navbar() {
     <nav className="navbar">
       <ul className="navbar-links">
         {links.map((link) => (
-          <li
-            key={link.path}
-            className={`nav-item ${currentPath === link.path ? "active" : ""}`}
-          >
+          <li key={link.path} className={`nav-item ${currentPath === link.path ? "active" : ""}`}>
             <Link to={link.path}>{link.name}</Link>
           </li>
         ))}
       </ul>
     </nav>
   );
-};
+}
 
 export default Navbar;
