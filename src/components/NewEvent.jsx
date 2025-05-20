@@ -1,7 +1,7 @@
 import { Button, Container } from "@mui/material";  
 import { collection, addDoc } from "firebase/firestore";
 
-import db from "../firebase";
+import { db } from "../firebase";
 
 export default function NewEvent() {
     const handleAddEvent = async () => {
