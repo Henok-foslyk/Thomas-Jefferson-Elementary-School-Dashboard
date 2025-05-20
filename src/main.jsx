@@ -2,14 +2,13 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import App from "./App";
-import ClassesDashboard from "./routes/ClassesDashboard";
-import StudentDirectory from "./routes/StudentDirectory";
+import App from './App'
+import ClassesDashboard from './routes/ClassesDashboard';
+import ErrorFallBack from './components/ErrorFallBack';
 
 const router = createBrowserRouter([
-  { path: "/", element: <App /> },
-  { path: "/classes", element: <ClassesDashboard /> },
-  { path: "/students", element: <StudentDirectory /> },
+  {path: "/", element: <App />, errorElement: <ErrorFallBack />},
+  {path: "/classes", element: <ClassesDashboard />, errorElement: <ErrorFallBack />},
 ]);
 
 createRoot(document.getElementById("root")).render(
@@ -17,3 +16,5 @@ createRoot(document.getElementById("root")).render(
     <RouterProvider router={router} />
   </StrictMode>
 );
+
+
