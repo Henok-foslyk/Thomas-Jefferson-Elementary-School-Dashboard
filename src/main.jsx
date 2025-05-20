@@ -6,6 +6,7 @@ import App from './App'
 import ClassesDashboard from './routes/ClassesDashboard';
 import Calendar from "./routes/CalendarDashboard";
 import Students from "./routes/StudentDirectory";
+import Teachers from "./routes/TeacherDirectory";
 import Class from './routes/Class'
 
 import ErrorFallBack from "./components/ErrorFallBack";
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
   {path: "/class/:id", element: <Class id='id'/>, errorElement: <ErrorFallBack />},
   { path: "/calendar", element: <Calendar />, errorElement: <ErrorFallBack /> },
   { path: "/students", element: <Students />, errorElement: <ErrorFallBack /> },
+  { path: "/teachers", element: <Teachers />, errorElement: <ErrorFallBack /> },
 ]);
 
 createRoot(document.getElementById("root")).render(
