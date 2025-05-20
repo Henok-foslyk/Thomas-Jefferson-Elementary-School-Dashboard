@@ -1,4 +1,5 @@
 import {
+  Box,
   Container,
   Typography,
   Table,
@@ -7,8 +8,10 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Pagination,
   Paper,
   TableSortLabel,
+  TextField,
 } from "@mui/material";
 import { useState, useMemo } from "react";
 import Navbar from "../components/Navbar.jsx";
@@ -174,10 +177,21 @@ const studentsData = [
     email: "riley.baker@tomjeff.edu",
     enrollmentYear: "2021",
   },
+  {
+    id: "0021",
+    first: "Sophia",
+    last: "Campbell",
+    year: "5",
+    email: "sophia.campbell@tomjeff.edu",
+    enrollmentYear: "2019",
+  },
 ];
 
 export default function StudentDirectory() {
   const [sortConfig, setSortConfig] = useState({ key: "id", direction: "asc" });
+  const [searchQuery, setSearchQuery] = useState("");
+  const [page, setPage] = useState(1);
+  const rowsPerPage = 20;
 
   // useMemo to memoize the sorted students
   const sortedStudents = useMemo(() => {
@@ -207,6 +221,21 @@ export default function StudentDirectory() {
     }));
   }
 
+  const filteredStudents = useMemo(() => {
+    if (!searchQuery) return sortedStudents;
+    const q = searchQuery.toLowerCase();
+
+    return sortedStudents.filter((s) =>
+      Object.values(s).some((val) => String(val).toLowerCase().includes(q))
+    );
+  }, [searchQuery, sortedStudents]);
+
+  const paginatedStudents = useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+
+    return filteredStudents.slice(start, start + rowsPerPage);
+  }, [page, filteredStudents]);
+
   return (
     <>
       <Navbar />
@@ -215,6 +244,19 @@ export default function StudentDirectory() {
         <Typography variant="h5" align="center" gutterBottom>
           Students
         </Typography>
+
+        <TextField
+          label="Search"
+          variant="outlined"
+          size="small"
+          fullWidth
+          value={searchQuery}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+            setPage(1); // reset to page 1 on new search
+          }}
+          sx={{ mb: 2 }}
+        />
 
         <TableContainer component={Paper}>
           <Table sx={{ tableLayout: "fixed", width: "100%" }}>
@@ -272,46 +314,29 @@ export default function StudentDirectory() {
             </TableHead>
 
             <TableBody>
-              {sortedStudents.map((student) => (
+              {paginatedStudents.map((student) => (
                 <TableRow key={student.id}>
                   <TableCell sx={{ px: 3 }}>{student.id}</TableCell>
-                  <TableCell
-                    sx={{
-                      px: 0,
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {student.first}
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      px: 2,
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {student.last}
-                  </TableCell>
+                  <TableCell sx={{ px: 0 }}>{student.first}</TableCell>
+                  <TableCell sx={{ px: 2 }}>{student.last}</TableCell>
                   <TableCell sx={{ px: 6 }}>{student.year}</TableCell>
-                  <TableCell
-                    sx={{
-                      px: 2,
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    {student.email}
-                  </TableCell>
+                  <TableCell sx={{ px: 2 }}>{student.email}</TableCell>
                   <TableCell sx={{ px: 9 }}>{student.enrollmentYear}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
+        <Box display="flex" justifyContent="flex-end" p={2}>
+          <Pagination
+            count={Math.ceil(filteredStudents.length / rowsPerPage)}
+            page={page}
+            onChange={(_, value) => setPage(value)}
+            showFirstButton
+            showLastButton
+            size="small"
+          />
+        </Box>
       </Container>
     </>
   );
