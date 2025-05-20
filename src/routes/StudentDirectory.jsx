@@ -113,7 +113,7 @@ export default function StudentDirectory() {
           <Table sx={{ tableLayout: "fixed", width: "100%" }}>
             <TableHead sx={{ backgroundColor: "#ddd" }}>
               <TableRow>
-                <TableCell sx={{ px: 3, width: 70 }}>
+                <TableCell sx={{ px: 3, width: 90 }}>
                   <TableSortLabel
                     active={sortConfig.key === "id"}
                     direction={sortConfig.key === "id" ? sortConfig.direction : "asc"}
@@ -122,6 +122,7 @@ export default function StudentDirectory() {
                     <strong>ID</strong>
                   </TableSortLabel>
                 </TableCell>
+
                 <TableCell sx={{ px: 0, width: 170 }}>
                   <TableSortLabel
                     active={sortConfig.key === "first"}
@@ -131,6 +132,7 @@ export default function StudentDirectory() {
                     <strong>First</strong>
                   </TableSortLabel>
                 </TableCell>
+
                 <TableCell sx={{ px: 2, width: 170 }}>
                   <TableSortLabel
                     active={sortConfig.key === "last"}
@@ -140,7 +142,8 @@ export default function StudentDirectory() {
                     <strong>Last</strong>
                   </TableSortLabel>
                 </TableCell>
-                <TableCell sx={{ px: 5, width: 60 }}>
+
+                <TableCell sx={{ px: 1, width: 80 }}>
                   <TableSortLabel
                     active={sortConfig.key === "year"}
                     direction={sortConfig.key === "year" ? sortConfig.direction : "asc"}
@@ -149,9 +152,15 @@ export default function StudentDirectory() {
                     <strong>Year</strong>
                   </TableSortLabel>
                 </TableCell>
+
                 <TableCell sx={{ px: 2, width: 250 }}>
                   <strong>Email</strong>
                 </TableCell>
+
+                <TableCell sx={{ px: 0, width: 80 }}>
+                  <strong>GPA</strong>
+                </TableCell>
+
                 <TableCell sx={{ px: 9 }}>
                   <TableSortLabel
                     active={sortConfig.key === "enrollmentYear"}
@@ -170,8 +179,11 @@ export default function StudentDirectory() {
                   <TableCell sx={{ px: 3 }}>{student.id}</TableCell>
                   <TableCell sx={{ px: 0 }}>{student.first}</TableCell>
                   <TableCell sx={{ px: 2 }}>{student.last}</TableCell>
-                  <TableCell sx={{ px: 6 }}>{student.year === 0 ? "K" : student.year}</TableCell>
+                  <TableCell sx={{ px: 2 }}>{student.year === 0 ? "K" : student.year}</TableCell>
                   <TableCell sx={{ px: 2 }}>{student.email}</TableCell>
+                  <TableCell sx={{ px: 1 }}>
+                    {student.gpa != null ? student.gpa.toFixed(2) : "—"}
+                  </TableCell>
                   <TableCell sx={{ px: 9 }}>{student.enrollmentYear}</TableCell>
                 </TableRow>
               ))}
