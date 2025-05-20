@@ -4,10 +4,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from './App'
 import ClassesDashboard from './routes/ClassesDashboard'
+import Class from './routes/Class'
 
 const router = createBrowserRouter([
   {path: "/", element: <App />},
   {path: "/classes", element: <ClassesDashboard />},
+  {path: "/class/:id", element: <Class id='id'/>}
 ]);
 
 createRoot(document.getElementById("root")).render(

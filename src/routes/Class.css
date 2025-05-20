@@ -1,0 +1,13 @@
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.classInfo {
+    width: 80%;
+}
+
+.classInfoText {
+    
+}
