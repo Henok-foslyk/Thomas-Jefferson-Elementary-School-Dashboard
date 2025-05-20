@@ -1,3 +1,11 @@
+.calender-container {
+    outline: 2px dashed blue;
+}
+
 .calendar-heading {
     text-align: left;
+}
+
+.new-event-container {
+    outline: 2px dashed blue;
 }
