@@ -4,6 +4,8 @@ import { collection, addDoc } from "firebase/firestore";
 
 import { db } from "../firebase";
 
+import "../styles/calendar.css";
+
 export default function NewEvent() {
     const [date, setDate] = useState('');
     const [eventName, setEventName] = useState('');
@@ -26,7 +28,7 @@ export default function NewEvent() {
         
     return (
         <>
-            <Container>
+            <Container class="new-event-container">
                 <label> Date of Event <span></span>
                     <input
                         type="date"
