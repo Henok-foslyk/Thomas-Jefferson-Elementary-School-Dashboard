@@ -48,8 +48,13 @@ export default function StudentDirectory() {
 
       // Numeric-sort for year & enrollmentYear
       if (sortConfig.key === "year" || sortConfig.key === "enrollmentYear") {
-        aKey = Number(aKey);
-        bKey = Number(bKey);
+        const parseVal = (v) => {
+          // treat "K" or 0 as 0, everything else as its number
+          if (v === "K" || v === 0) return 0;
+          return Number(v);
+        };
+        aKey = parseVal(aKey);
+        bKey = parseVal(bKey);
       }
 
       if (aKey < bKey) return sortConfig.direction === "asc" ? -1 : 1;
@@ -165,7 +170,7 @@ export default function StudentDirectory() {
                   <TableCell sx={{ px: 3 }}>{student.id}</TableCell>
                   <TableCell sx={{ px: 0 }}>{student.first}</TableCell>
                   <TableCell sx={{ px: 2 }}>{student.last}</TableCell>
-                  <TableCell sx={{ px: 6 }}>{student.year}</TableCell>
+                  <TableCell sx={{ px: 6 }}>{student.year === 0 ? "K" : student.year}</TableCell>
                   <TableCell sx={{ px: 2 }}>{student.email}</TableCell>
                   <TableCell sx={{ px: 9 }}>{student.enrollmentYear}</TableCell>
                 </TableRow>
