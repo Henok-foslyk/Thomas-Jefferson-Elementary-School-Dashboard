@@ -1,0 +1,38 @@
+.classCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.classHeader {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    padding: 10px;
+    max-width: 80%;
+    background-color: #D9D9D9;
+    margin: 0 auto;
+    gap: 10%;
+    border-radius: 20px;
+}
+
+.classRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
+    padding: 10px;
+    max-width: 80%;
+    background-color: #F5F5F5;
+    margin: 0 auto;
+    gap: 10%;
+    margin-top: 10px;
+    border-radius: 20px;
+}
+
+.classInfo {
+    width: 80%;
+}
+
+.classInfoText {
+    
+}
