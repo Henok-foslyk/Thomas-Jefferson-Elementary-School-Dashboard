@@ -48,11 +48,9 @@ export default function StudentDirectory() {
 
       // Numeric-sort for year & enrollmentYear
       if (sortConfig.key === "year" || sortConfig.key === "enrollmentYear") {
-        const parseVal = (v) => {
-          // treat "K" or 0 as 0, everything else as its number
-          if (v === "K" || v === 0) return 0;
-          return Number(v);
-        };
+        // When sorting, treat year === 0 or "K" as 0 so Kindergarten comes first
+        const parseVal = (v) => (v === "K" || v === 0 ? 0 : Number(v));
+
         aKey = parseVal(aKey);
         bKey = parseVal(bKey);
       }
