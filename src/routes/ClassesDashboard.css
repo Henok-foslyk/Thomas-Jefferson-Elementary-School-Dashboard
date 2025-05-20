@@ -1,12 +1,12 @@
-.center {
+.classesCenter {
     display:flex;
     align-items: center;
     justify-content: center;
 }
 
-.header {
+.classesHeader {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
     padding: 10px;
     max-width: 80%;
@@ -16,9 +16,9 @@
     border-radius: 20px;
 }
 
-.row {
+.classesRow {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
     padding: 10px;
     max-width: 80%;
