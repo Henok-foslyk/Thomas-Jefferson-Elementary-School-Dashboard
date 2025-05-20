@@ -13,189 +13,35 @@ import {
   TableSortLabel,
   TextField,
 } from "@mui/material";
-import { useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
+import { db } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
+
 import Navbar from "../components/Navbar.jsx";
 
-const studentsData = [
-  {
-    id: "0001",
-    first: "John",
-    last: "Doe",
-    year: "3",
-    email: "john.doe@tomjeff.edu",
-    enrollmentYear: "2022",
-  },
-  {
-    id: "0002",
-    first: "Jane",
-    last: "Doe",
-    year: "4",
-    email: "jane.doe@tomjeff.edu",
-    enrollmentYear: "2021",
-  },
-  {
-    id: "0003",
-    first: "Alice",
-    last: "Smith",
-    year: "2",
-    email: "alice.smith@tomjeff.edu",
-    enrollmentYear: "2023",
-  },
-  {
-    id: "0004",
-    first: "Bob",
-    last: "Johnson",
-    year: "4",
-    email: "bob.johnson@tomjeff.edu",
-    enrollmentYear: "2021",
-  },
-  {
-    id: "0005",
-    first: "Carol",
-    last: "Lee",
-    year: "1",
-    email: "carol.lee@tomjeff.edu",
-    enrollmentYear: "2024",
-  },
-  {
-    id: "0006",
-    first: "David",
-    last: "Martinez",
-    year: "5",
-    email: "david.martinez@tomjeff.edu",
-    enrollmentYear: "2020",
-  },
-  {
-    id: "0007",
-    first: "Eva",
-    last: "Thompson",
-    year: "3",
-    email: "eva.thompson@tomjeff.edu",
-    enrollmentYear: "2022",
-  },
-  {
-    id: "0008",
-    first: "Frank",
-    last: "Turner",
-    year: "4",
-    email: "frank.turner@tomjeff.edu",
-    enrollmentYear: "2021",
-  },
-  {
-    id: "0009",
-    first: "Grace",
-    last: "Kim",
-    year: "2",
-    email: "grace.kim@tomjeff.edu",
-    enrollmentYear: "2023",
-  },
-  {
-    id: "0010",
-    first: "Henry",
-    last: "Clark",
-    year: "5",
-    email: "henry.clark@tomjeff.edu",
-    enrollmentYear: "2020",
-  },
-  {
-    id: "0011",
-    first: "Isabel",
-    last: "Wright",
-    year: "1",
-    email: "isabel.wright@tomjeff.edu",
-    enrollmentYear: "2024",
-  },
-  {
-    id: "0012",
-    first: "Jack",
-    last: "Lopez",
-    year: "3",
-    email: "jack.lopez@tomjeff.edu",
-    enrollmentYear: "2022",
-  },
-  {
-    id: "0013",
-    first: "Katie",
-    last: "Hall",
-    year: "4",
-    email: "katie.hall@tomjeff.edu",
-    enrollmentYear: "2021",
-  },
-  {
-    id: "0014",
-    first: "Liam",
-    last: "Allen",
-    year: "2",
-    email: "liam.allen@tomjeff.edu",
-    enrollmentYear: "2023",
-  },
-  {
-    id: "0015",
-    first: "Mia",
-    last: "Young",
-    year: "5",
-    email: "mia.young@tomjeff.edu",
-    enrollmentYear: "2020",
-  },
-  {
-    id: "0016",
-    first: "Noah",
-    last: "Hernandez",
-    year: "3",
-    email: "noah.hernandez@tomjeff.edu",
-    enrollmentYear: "2022",
-  },
-  {
-    id: "0017",
-    first: "Olivia",
-    last: "King",
-    year: "4",
-    email: "olivia.king@tomjeff.edu",
-    enrollmentYear: "2021",
-  },
-  {
-    id: "0018",
-    first: "Paul",
-    last: "Scott",
-    year: "1",
-    email: "paul.scott@tomjeff.edu",
-    enrollmentYear: "2024",
-  },
-  {
-    id: "0019",
-    first: "Quinn",
-    last: "Adams",
-    year: "2",
-    email: "quinn.adams@tomjeff.edu",
-    enrollmentYear: "2023",
-  },
-  {
-    id: "0020",
-    first: "Riley",
-    last: "Baker",
-    year: "4",
-    email: "riley.baker@tomjeff.edu",
-    enrollmentYear: "2021",
-  },
-  {
-    id: "0021",
-    first: "Sophia",
-    last: "Campbell",
-    year: "5",
-    email: "sophia.campbell@tomjeff.edu",
-    enrollmentYear: "2019",
-  },
-];
-
 export default function StudentDirectory() {
+  const [studentsData, setStudentsData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "id", direction: "asc" });
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
   const rowsPerPage = 20;
 
+  useEffect(() => {
+    async function fetchStudents() {
+      const querySnapshot = await getDocs(collection(db, "students"));
+      const loaded = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setStudentsData(loaded);
+    }
+    fetchStudents();
+  }, []);
+
   // useMemo to memoize the sorted students
   const sortedStudents = useMemo(() => {
     const sorted = [...studentsData];
+
     sorted.sort((a, b) => {
       let aKey = a[sortConfig.key];
       let bKey = b[sortConfig.key];
@@ -211,7 +57,7 @@ export default function StudentDirectory() {
       return 0;
     });
     return sorted;
-  }, [sortConfig]);
+  }, [sortConfig, studentsData]);
 
   // Function to handle sorting when a column header is clicked
   function handleSort(key) {
