@@ -4,13 +4,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App";
 import ClassesDashboard from "./routes/ClassesDashboard";
+import Calendar from "./routes/CalendarDashboard";
+import Students from "./routes/StudentDirectory";
+
 import ErrorFallBack from "./components/ErrorFallBack";
-import StudentDirectory from "./routes/StudentDirectory";
 
 const router = createBrowserRouter([
   { path: "/", element: <App />, errorElement: <ErrorFallBack /> },
   { path: "/classes", element: <ClassesDashboard />, errorElement: <ErrorFallBack /> },
-  { path: "/students", element: <StudentDirectory />, errorElement: <ErrorFallBack /> },
+  { path: "/calendar", element: <Calendar />, errorElement: <ErrorFallBack /> },
+  { path: "/students", element: <Students />, errorElement: <ErrorFallBack /> },
 ]);
 
 createRoot(document.getElementById("root")).render(
