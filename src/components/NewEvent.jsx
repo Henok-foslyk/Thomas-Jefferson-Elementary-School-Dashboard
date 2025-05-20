@@ -1,15 +1,21 @@
+import { useState } from "react";
 import { Button, Container } from "@mui/material";  
 import { collection, addDoc } from "firebase/firestore";
 
 import { db } from "../firebase";
 
 export default function NewEvent() {
-    const handleAddEvent = async () => {
+    const [date, setDate] = useState('');
+    const [eventName, setEventName] = useState('');
+    const [location, setLocation] = useState('');
+
+    const handleAddEvent = async (eventDate, newEventName, eventLocation) => {
+        console.log(eventDate)
        try {
             const docRef = await addDoc(collection(db, "events"), {
-            data: "9-20-2025",
-            "event-name": "Fire Drill",
-            location: "42 Cypress Dr. Summerfield, FL 34491"
+            date: eventDate,
+            "event-name": newEventName,
+            location: eventLocation
         });
         console.log("added doc: ", docRef.id);
         }
@@ -21,9 +27,33 @@ export default function NewEvent() {
     return (
         <>
             <Container>
-                <Button variant="contained" onClick={handleAddEvent}>
+                <label> Date of Event <span></span>
+                    <input
+                        type="date"
+                        value={date}
+                        onChange={e => setDate(e.target.value)}
+                    />
+                </label><br></br>
+                <label>Name of Event <span></span>
+                    <input 
+                        type="text"
+                        value={eventName}
+                        onChange={e => setEventName(e.target.value)}
+                    />
+                </label><br></br>
+                <label>
+                    Location <span></span>
+                    <input 
+                        type="text"
+                        value={location}
+                        onChange={e => setLocation(e.target.value)}
+                    />
+                </label>
+                    
+                <Button variant="contained" onClick={() => handleAddEvent(date, eventName, location)}>
                     Add Event
                 </Button>
+
             </Container>
         </>
     );
