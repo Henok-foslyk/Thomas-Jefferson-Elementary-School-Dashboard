@@ -71,6 +71,14 @@ function editClass() {
     const handleEditClass = async (e) => {
         e.preventDefault();
         try {
+            const teacherSnapshot = await getDocs(query(collection(db, "teachers"), where("class", "==", class_id)));
+
+            const updates = teacherSnapshot.docs.map((teacherDoc) =>
+                updateDoc(doc(db, "teachers", teacherDoc.id), { class: null })
+            );
+
+            await Promise.all(updates);
+
             await updateDoc(doc(db, "classes", class_id), {
                 name: newName,
                 location: newLocation,
