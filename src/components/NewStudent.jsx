@@ -8,8 +8,6 @@ import {
   DialogActions,
   TextField,
 } from "@mui/material";
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../firebase";
 
 export default function NewStudent({ onAdd }) {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -31,7 +29,7 @@ export default function NewStudent({ onAdd }) {
 
   const handleSubmit = async () => {
     // Create database document
-    const docRef = await addDoc(collection(db, "students"), {
+    onAdd({
       first: newStudent.first,
       last: newStudent.last,
       year: Number(newStudent.year),
@@ -39,19 +37,6 @@ export default function NewStudent({ onAdd }) {
       enrollmentYear: String(newStudent.enrollmentYear),
       gpa: null,
     });
-
-    // Build new student object
-    const newStudent = {
-      id: docRef.id,
-      first: newStudent.first,
-      last: newStudent.last,
-      year: Number(newStudent.year),
-      email: newStudent.email,
-      enrollmentYear: String(newStudent.enrollmentYear),
-      gpa: null,
-    };
-
-    onAdd(newStudent);
 
     // Reset form & close dialog
     setNewStudent({ first: "", last: "", year: "", email: "", enrollmentYear: "" });
