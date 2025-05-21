@@ -87,8 +87,8 @@ export default function StudentTable({ rows, sortConfig, onSort, onEdit, onDelet
   ];
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ tableLayout: "fixed", width: "100%" }}>
+    <TableContainer component={Paper} sx={{ maxHeight: 600, overflow: "auto" }}>
+      <Table stickyHeader sx={{ tableLayout: "fixed", width: "100%" }}>
         {/* TableHead is where the column headers are defined */}
         <TableHead sx={{ backgroundColor: "#ddd" }}>
           <TableRow>

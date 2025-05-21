@@ -12,6 +12,7 @@ import DeleteStudentDirectory from "../components/student_directory/DeleteStuden
 export default function StudentDirectory() {
   const [studentsData, setStudentsData] = useState([]);
   const [assignmentsData, setAssignmentsData] = useState([]);
+  const [classesData, setClassesData] = useState([]);
 
   const [sortConfig, setSortConfig] = useState({ key: "last", direction: "asc" });
 
@@ -40,6 +41,13 @@ export default function StudentDirectory() {
         ...doc.data(),
       }));
       setAssignmentsData(assignments);
+
+      const classesSnapshot = await getDocs(collection(db, "classes"));
+      const classes = classesSnapshot.docs.map((d) => ({
+        id: d.id,
+        ...d.data(),
+      }));
+      setClassesData(classes);
     }
     fetchData();
   }, []);
@@ -68,9 +76,18 @@ export default function StudentDirectory() {
           ? classAverages.reduce((s, a) => s + a, 0) / classAverages.length
           : null;
 
-      return { ...student, finalGrade };
+      // Find the classes this student is in
+      const studentClasses = classesData
+        .filter((c) => Array.isArray(c.student_ids) && c.student_ids.includes(student.id))
+        .map((c) => c.name);
+
+      return {
+        ...student,
+        finalGrade,
+        classes: studentClasses,
+      };
     });
-  }, [studentsData, assignmentsData]);
+  }, [studentsData, assignmentsData, classesData]);
 
   // Update finalGrade in database when it changes
   useEffect(() => {
