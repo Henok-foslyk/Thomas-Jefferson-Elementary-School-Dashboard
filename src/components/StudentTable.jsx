@@ -49,15 +49,15 @@ export default function StudentTable({ rows, sortConfig, onSort, onEdit, onDelet
       key: "email",
       label: "Email",
       sortable: false,
-      headerSx: { px: 2, width: 250 },
+      headerSx: { px: 2, width: 230 },
       cellSx: { px: 2 },
     },
     {
       key: "finalGrade",
       label: "Final Grade",
-      sortable: false,
-      headerSx: { px: 1, width: 80 },
-      cellSx: { px: 3 },
+      sortable: true,
+      headerSx: { px: 0, width: 110 },
+      cellSx: { px: 2 },
       render: (v) => (v != null ? v.toFixed(2) : "—"),
     },
     {
@@ -65,7 +65,7 @@ export default function StudentTable({ rows, sortConfig, onSort, onEdit, onDelet
       label: "Enrolled",
       sortable: true,
       headerSx: { px: 9 },
-      cellSx: { px: 9 },
+      cellSx: { px: 10 },
     },
     {
       key: "actions",
