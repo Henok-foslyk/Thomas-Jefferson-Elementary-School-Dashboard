@@ -166,7 +166,7 @@ function editClass() {
                                 ))}
                             </select>
                             <p className="formLabel">Students</p>
-                            <select
+                            {/* <select
                                 className="editClassSelect"
                                 multiple
                                 value={newStudents}
@@ -180,7 +180,26 @@ function editClass() {
                                     {student.first} {student.last}
                                     </option>
                                 ))}
-                            </select>
+                            </select> */}
+                            <div className="checkboxGroup">
+                                {students.map((student) => (
+                                    <label key={student.id} className="checkboxItem">
+                                    <input
+                                        type="checkbox"
+                                        value={student.id}
+                                        checked={newStudents.includes(student.id)}
+                                        onChange={(e) => {
+                                        if (e.target.checked) {
+                                            setNewStudents([...newStudents, student.id]);
+                                        } else {
+                                            setNewStudents(newStudents.filter(id => id !== student.id));
+                                        }
+                                        }}
+                                    />
+                                    {student.first} {student.last}
+                                    </label>
+                                ))}
+                            </div>
                             <button className="editClassButton" type="submit">Update Class</button>
                             <button className="deleteClassButton" type="button" onClick={handleDeleteClass}>Delete Class</button>
                         </form>

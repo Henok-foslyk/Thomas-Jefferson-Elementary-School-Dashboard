@@ -94,3 +94,20 @@
     border: none;
     cursor: pointer;
 }
+
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.checkboxItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
