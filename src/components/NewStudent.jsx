@@ -30,7 +30,7 @@ export default function NewStudent({ onAdd }) {
   const handleClose = () => setDialogOpen(false);
 
   const handleSubmit = async () => {
-    // Create Firestore document
+    // Create database document
     const docRef = await addDoc(collection(db, "students"), {
       first: newStudent.first,
       last: newStudent.last,
@@ -39,6 +39,7 @@ export default function NewStudent({ onAdd }) {
       enrollmentYear: String(newStudent.enrollmentYear),
       gpa: null,
     });
+
     // Build new student object
     const newStudent = {
       id: docRef.id,
