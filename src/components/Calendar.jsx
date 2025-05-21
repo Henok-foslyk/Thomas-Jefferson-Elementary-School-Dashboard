@@ -8,8 +8,8 @@ import "../styles/calendar.css";
 export default function Calendar() {
     return (
         <>
-            <Container class="calender-container">
-                <div class='calendar-heading'>test</div>
+            <Container className="calender-container">
+                <div className='calendar-heading'>test</div>
                  <LocalizationProvider dateAdapter={AdapterDayjs}>
                  <DateCalendar />
                 </LocalizationProvider>

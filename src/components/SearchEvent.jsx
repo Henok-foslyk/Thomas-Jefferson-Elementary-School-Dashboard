@@ -8,8 +8,8 @@ export default function SearchEvent() {
 
     return (
         <>
-            <Container class="search-event-container">
-                <h1>search event by name</h1>
+            <Container className="search-event-container">
+                <input placeholder="Search by event name"/>
             </Container>
             
         </>
