@@ -16,7 +16,6 @@ export default function NewTeacherDirectory({ setTeachers }) {
   const [newTeacher, setNewTeacher] = useState({
     first: "",
     last: "",
-    classId: "",
     email: "",
   });
 
@@ -34,15 +33,15 @@ export default function NewTeacherDirectory({ setTeachers }) {
     const docRef = await addDoc(collection(db, "teachers"), {
       first: newTeacher.first,
       last: newTeacher.last,
-      class: newTeacher.classId,
+      class: null,
       email: newTeacher.email,
     });
 
     // Update local state
-    setTeachers((prev) => [...prev, { id: docRef.id, ...newTeacher }]);
+    setTeachers((prev) => [...prev, { id: docRef.id, ...newTeacher, class: null }]);
 
     // Reset form & close dialog
-    setNewTeacher({ first: "", last: "", classId: "", email: "" });
+    setNewTeacher({ first: "", last: "", email: "" });
     handleClose();
   };
 
@@ -67,14 +66,6 @@ export default function NewTeacherDirectory({ setTeachers }) {
             name="last"
             label="Last Name"
             value={newTeacher.last}
-            onChange={handleChange}
-            fullWidth
-            margin="dense"
-          />
-          <TextField
-            name="class"
-            label="Class"
-            value={newTeacher.class}
             onChange={handleChange}
             fullWidth
             margin="dense"
