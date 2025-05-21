@@ -8,8 +8,10 @@ import {
   DialogActions,
   TextField,
 } from "@mui/material";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase";
 
-export default function NewStudent({ onAdd }) {
+export default function NewStudentDirectory({ setStudents }) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [newStudent, setNewStudent] = useState({
     first: "",
@@ -27,9 +29,10 @@ export default function NewStudent({ onAdd }) {
   const handleOpen = () => setDialogOpen(true);
   const handleClose = () => setDialogOpen(false);
 
+  // Function to handle adding a new student
   const handleSubmit = async () => {
-    // Create database document
-    onAdd({
+    // Write to database using auto-ID
+    const docRef = await addDoc(collection(db, "students"), {
       first: newStudent.first,
       last: newStudent.last,
       year: Number(newStudent.year),
@@ -37,6 +40,12 @@ export default function NewStudent({ onAdd }) {
       enrollmentYear: String(newStudent.enrollmentYear),
       gpa: null,
     });
+
+    // Update local state
+    setStudents((prev) => [
+      ...prev,
+      { id: docRef.id, ...newStudent, year: Number(newStudent.year), gpa: null },
+    ]);
 
     // Reset form & close dialog
     setNewStudent({ first: "", last: "", year: "", email: "", enrollmentYear: "" });
