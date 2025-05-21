@@ -9,6 +9,7 @@ import TeacherTable from "../components/TeacherTable.jsx";
 
 export default function TeacherDirectory() {
   const [teachersData, setTeachersData] = useState([]);
+  const [classMap, setClassMap] = useState({});
   const [sortConfig, setSortConfig] = useState({ key: "id", direction: "asc" });
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
@@ -16,16 +17,25 @@ export default function TeacherDirectory() {
 
   // Fetch teachers data from database
   useEffect(() => {
-    async function fetchTeachers() {
+    async function fetchData() {
       const querySnapshot = await getDocs(collection(db, "teachers"));
       const loaded = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
       setTeachersData(loaded);
+
+      const classSnapshot = await getDocs(collection(db, "classes"));
+      const map = {};
+      classSnapshot.forEach((doc) => {
+        map[doc.id] = doc.data().name; 
+      });
+      setClassMap(map);
     }
-    fetchTeachers();
+    fetchData();
   }, []);
+
+  
 
   // useMemo to memoize the sorted teachers
   const sortedTeachers = useMemo(() => {
@@ -83,7 +93,12 @@ export default function TeacherDirectory() {
           }}
         />
 
-        <TeacherTable rows={paginatedTeachers} sortConfig={sortConfig} onSort={handleSort} />
+        <TeacherTable
+          rows={paginatedTeachers}
+          sortConfig={sortConfig}
+          onSort={handleSort}
+          classMap={classMap}
+        />
 
         <Box display="flex" justifyContent="flex-end" p={2}>
           <Pagination
