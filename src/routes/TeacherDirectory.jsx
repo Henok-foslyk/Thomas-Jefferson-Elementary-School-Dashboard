@@ -6,60 +6,60 @@ import { collection, getDocs } from "firebase/firestore";
 import Navbar from "../components/Navbar.jsx";
 import SearchBar from "../components/SearchBar.jsx";
 import TeacherTable from "../components/TeacherTable.jsx";
+import NewTeacherDirectory from "../components/NewTeacherDirectory.jsx";
+import DeleteTeacherDirectory from "../components/DeleteTeacherDirectory.jsx";
 
 export default function TeacherDirectory() {
   const [teachersData, setTeachersData] = useState([]);
   const [classMap, setClassMap] = useState({});
-  const [sortConfig, setSortConfig] = useState({ key: "id", direction: "asc" });
+  const [sortConfig, setSortConfig] = useState({ key: "last", direction: "asc" });
+
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
+
+  const [toDelete, setToDelete] = useState(null);
+
   const rowsPerPage = 20;
 
   // Fetch teachers data from database
   useEffect(() => {
     async function fetchData() {
-      const querySnapshot = await getDocs(collection(db, "teachers"));
-      const loaded = querySnapshot.docs.map((doc) => ({
+      // Fetch teachers data from database
+      const teacherSnapshot = await getDocs(collection(db, "teachers"));
+      const loaded = teacherSnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
       setTeachersData(loaded);
 
+      // Fetch classes data from database
       const classSnapshot = await getDocs(collection(db, "classes"));
       const map = {};
       classSnapshot.forEach((doc) => {
-        map[doc.id] = doc.data().name; 
+        map[doc.id] = doc.data().name;
       });
       setClassMap(map);
     }
     fetchData();
   }, []);
 
-  
-
-  // useMemo to memoize the sorted teachers
+  // Memoized sorted teachers
   const sortedTeachers = useMemo(() => {
     const sorted = [...teachersData];
 
     sorted.sort((a, b) => {
       let aKey = a[sortConfig.key];
       let bKey = b[sortConfig.key];
+
       if (aKey < bKey) return sortConfig.direction === "asc" ? -1 : 1;
       if (aKey > bKey) return sortConfig.direction === "asc" ? 1 : -1;
+
       return 0;
     });
     return sorted;
   }, [sortConfig, teachersData]);
 
-  // Function to handle sorting when a column header is clicked
-  function handleSort(key) {
-    setSortConfig((prev) => ({
-      key,
-      direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
-    }));
-  }
-
-  // useMemo to memoize the filtered teachers
+  // Memoized filtered teachers
   const filteredTeachers = useMemo(() => {
     if (!searchQuery) return sortedTeachers;
     const q = searchQuery.toLowerCase();
@@ -69,12 +69,20 @@ export default function TeacherDirectory() {
     );
   }, [searchQuery, sortedTeachers]);
 
-  // useMemo to memoize the paginated teachers
+  // Memoized paginated students
   const paginatedTeachers = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
 
     return filteredTeachers.slice(start, start + rowsPerPage);
   }, [page, filteredTeachers]);
+
+  // Sorting handler
+  function handleSort(key) {
+    setSortConfig((prev) => ({
+      key,
+      direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
+    }));
+  }
 
   return (
     <>
@@ -93,11 +101,23 @@ export default function TeacherDirectory() {
           }}
         />
 
+        <NewTeacherDirectory teachers={teachersData} setTeachers={setTeachersData} />
+
         <TeacherTable
           rows={paginatedTeachers}
           sortConfig={sortConfig}
           onSort={handleSort}
+          onDelete={(teacher) => setToDelete(teacher)}
           classMap={classMap}
+        />
+
+        <DeleteTeacherDirectory
+          teacher={toDelete}
+          open={Boolean(toDelete)}
+          onClose={() => setToDelete(null)}
+          onDeleted={(id) => {
+            setTeachersData((prev) => prev.filter((s) => s.id !== id));
+          }}
         />
 
         <Box display="flex" justifyContent="flex-end" p={2}>
