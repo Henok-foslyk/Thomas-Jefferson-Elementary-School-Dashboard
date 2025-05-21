@@ -51,6 +51,10 @@ export default function EventTable() {
         }
     }, [rows])
 
+    const handleSelection = () => {
+        console.log("selected");
+    }
+
     return (
         <>
             <Container className="search-event-container">
@@ -61,6 +65,7 @@ export default function EventTable() {
                         initialState={{ pagination: { paginationModel } }}
                         pageSizeOption={[5, 10]}
                         checkboxSelection
+                        loading={isLoading}
                         sx={{ border: 0 }}            
                     />
                 </Paper>
