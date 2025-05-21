@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect} from 'react'
 import { Link, useParams, useNavigate } from "react-router-dom";
 
-import { collection, query, doc, getDocs, getDoc, addDoc, updateDoc, increment, orderBy } from "firebase/firestore";
+import { collection, query, doc, getDocs, getDoc, addDoc, updateDoc, deleteDoc, increment, orderBy, where } from "firebase/firestore";
 import { db } from "../firebase";
 
 import Navbar from '../components/Navbar'
@@ -15,6 +15,7 @@ function editClass() {
     const [error, setError] = useState(null);
     const [classDetails, setClassDetails] = useState(null);
     const [teachers, setTeachers] = useState({});
+    const [filteredTeachers, setFilteredTeachers] = useState({});
     const [students, setStudents] = useState({});
     const [newName, setNewName] = useState("");
     const [newLocation, setNewLocation] = useState("");
@@ -29,8 +30,18 @@ function editClass() {
 
                 const teacherSnapshot = await getDocs(collection(db, "teachers"));
                 const teacherData = {};
+                const filteredTeachersData = {};
                 teacherSnapshot.docs.forEach(doc => {
                     teacherData[doc.id] = doc.data().first + " " + doc.data().last;
+                    if (doc.data().class == class_id) {
+                        filteredTeachersData[doc.id] = doc.data().first + " " + doc.data().last;
+                    }
+                });
+
+                teacherSnapshot.docs.forEach(doc => {
+                    if (doc.data().class == null) {
+                        filteredTeachersData[doc.id] = doc.data().first + " " + doc.data().last;
+                    }
                 });
 
                 const studentSnapshot = await getDocs(collection(db, "students"));
@@ -39,6 +50,7 @@ function editClass() {
                     ...doc.data()
                 }));
 
+                setFilteredTeachers(filteredTeachersData);
                 setStudents(studentData);
                 setTeachers(teacherData);
                 setNewName(classData.name);
@@ -59,16 +71,49 @@ function editClass() {
     const handleEditClass = async (e) => {
         e.preventDefault();
         try {
+            const teacherSnapshot = await getDocs(query(collection(db, "teachers"), where("class", "==", class_id)));
+
+            const updates = teacherSnapshot.docs.map((teacherDoc) =>
+                updateDoc(doc(db, "teachers", teacherDoc.id), { class: null })
+            );
+
+            await Promise.all(updates);
+
             await updateDoc(doc(db, "classes", class_id), {
                 name: newName,
                 location: newLocation,
                 student_ids: newStudents,
                 teacher_id: newTeacherId
             });
+
+            await updateDoc(doc(db, "teachers", newTeacherId), {
+                class: class_id
+            });
+
             navigate(`/class/${class_id}`);
-        } catch (err) {
-            console.error("Error updating class:", err);
+        } catch (e) {
+            console.error("Error updating class:", e);
             alert("Failed to update class.");
+        }
+    }
+
+    const handleDeleteClass = async (e) => {
+        e.preventDefault();
+        try {
+            await deleteDoc(doc(db, "classes", class_id))
+            
+            const teacherSnapshot = await getDocs(query(collection(db, "teachers"), where("class", "==", class_id)));
+
+            const updates = teacherSnapshot.docs.map((teacherDoc) =>
+                updateDoc(doc(db, "teachers", teacherDoc.id), { class: null })
+            );
+
+            await Promise.all(updates);
+
+            navigate(`/classes`)
+        } catch (e) {
+            console.error("Error deleting class: ", e);
+            alert ("Failed to delete class.")
         }
     }
 
@@ -106,7 +151,7 @@ function editClass() {
                         onChange={(e) => setNewTeacherId(e.target.value)}
                         >
                             <option value="">Select a teacher</option>
-                            {Object.entries(teachers).map(([id, name]) => (
+                            {Object.entries(filteredTeachers).map(([id, name]) => (
                                 <option key={id} value={id}>
                                     {name}
                                 </option>
@@ -129,6 +174,7 @@ function editClass() {
                             ))}
                         </select>
                         <button className="editClassButton" type="submit">Update Class</button>
+                        <button className="deleteClassButton" type="button" onClick={handleDeleteClass}>Delete Class</button>
                     </form>
                 </div>
                 )

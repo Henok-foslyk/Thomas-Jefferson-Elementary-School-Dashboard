@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect} from 'react'
 import { Link, useParams, useNavigate } from "react-router-dom";
 
-import { collection, query, doc, getDocs, getDoc, addDoc, updateDoc, increment, orderBy } from "firebase/firestore";
+import { collection, query, doc, getDocs, getDoc, addDoc, updateDoc, deleteDoc, increment, orderBy } from "firebase/firestore";
 import { db } from "../firebase";
 
 import Navbar from '../components/Navbar'
@@ -50,6 +50,17 @@ function EditGrade() {
         }
     }
 
+    const handleDeleteGrade = async (e) => {
+        e.preventDefault();
+        try {
+            await deleteDoc(doc(db, "assignments", assignment_id))
+            navigate(`/grades/${assignment.class_id}/${assignment.student_id}`)
+        } catch (e) {
+            console.error("Error deleting grade: ", e);
+            alert ("Failed to delete grade.")
+        }
+    }
+
     return (
         <>
             <Navbar/>
@@ -78,6 +89,7 @@ function EditGrade() {
                             onChange={(e) => setNewGrade(e.target.value)}
                         />
                         <button className="editGradeButton" type="submit">Update Grade</button>
+                        <button className="deleteGradeButton" type="button" onClick={handleDeleteGrade}>Delete Grade</button>
                     </form>
                 </div>
                 )
