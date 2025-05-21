@@ -7,7 +7,11 @@ import {
   TableRow,
   Paper,
   TableSortLabel,
+  IconButton,
 } from "@mui/material";
+
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 // Column configuration for the table
 const columns = [
@@ -15,7 +19,7 @@ const columns = [
     key: "id",
     label: "ID",
     sortable: true,
-    headerSx: { px: 3, width: 90 },
+    headerSx: { px: 3, width: 30 },
     cellSx: { px: 3 },
   },
   {
@@ -61,6 +65,23 @@ const columns = [
     sortable: true,
     headerSx: { px: 9 },
     cellSx: { px: 9 },
+  },
+  {
+    key: "actions",
+    label: "",
+    sortable: false,
+    headerSx: { px: 0, width: 100 },
+    cellSx: { px: 2 },
+    render: () => (
+      <>
+        <IconButton size="small">
+          <EditIcon fontSize="small" />
+        </IconButton>
+        <IconButton size="small">
+          <DeleteIcon fontSize="small" />
+        </IconButton>
+      </>
+    ),
   },
 ];
 

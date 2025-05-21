@@ -6,28 +6,31 @@ import { collection, getDocs } from "firebase/firestore";
 import Navbar from "../components/Navbar.jsx";
 import SearchBar from "../components/SearchBar";
 import StudentTable from "../components/StudentTable.jsx";
+import NewStudent from "../components/NewStudent.jsx";
 
 export default function StudentDirectory() {
   const [studentsData, setStudentsData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "id", direction: "asc" });
+
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
+
   const rowsPerPage = 20;
 
   // Fetch students data from database
   useEffect(() => {
     async function fetchStudents() {
-      const querySnapshot = await getDocs(collection(db, "students"));
-      const loaded = querySnapshot.docs.map((doc) => ({
+      const studentSnapshot = await getDocs(collection(db, "students"));
+      const students = studentSnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-      setStudentsData(loaded);
+      setStudentsData(students);
     }
     fetchStudents();
   }, []);
 
-  // useMemo to memoize the sorted students
+  // Memoized sorted students
   const sortedStudents = useMemo(() => {
     const sorted = [...studentsData];
 
@@ -51,15 +54,7 @@ export default function StudentDirectory() {
     return sorted;
   }, [sortConfig, studentsData]);
 
-  // Function to handle sorting when a column header is clicked
-  function handleSort(key) {
-    setSortConfig((prev) => ({
-      key,
-      direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
-    }));
-  }
-
-  // useMemo to memoize the filtered students
+  // Memoized filtered students
   const filteredStudents = useMemo(() => {
     if (!searchQuery) return sortedStudents;
     const q = searchQuery.toLowerCase();
@@ -69,12 +64,20 @@ export default function StudentDirectory() {
     );
   }, [searchQuery, sortedStudents]);
 
-  // useMemo to memoize the paginated students
+  // Memoized paginated students
   const paginatedStudents = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
 
     return filteredStudents.slice(start, start + rowsPerPage);
   }, [page, filteredStudents]);
+
+  // Sorting handler
+  function handleSort(key) {
+    setSortConfig((prev) => ({
+      key,
+      direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
+    }));
+  }
 
   return (
     <>
@@ -92,6 +95,8 @@ export default function StudentDirectory() {
             setPage(1);
           }}
         />
+
+        <NewStudent onAdd={(newStudent) => setStudentsData((prev) => [...prev, newStudent])} />
 
         <StudentTable rows={paginatedStudents} sortConfig={sortConfig} onSort={handleSort} />
 
