@@ -69,29 +69,38 @@ function EditGrade() {
             ) : error ? (
                 <p className="editGradeCenter">{error}</p>
             ) : (
-                <div className="editGradeContainer">
-                    <h1>Edit Grade</h1>
-                    <form onSubmit={handleEditGrade} className="editGradeForm">
-                        <p className="formLabel">Assignment Name</p>
-                        <input
-                            className="editGradeInput"
-                            type="text"
-                            placeholder="Name"
-                            value={newName}
-                            onChange={(e) => setNewName(e.target.value)}
-                        />
-                        <p className="formLabel">Grade</p>
-                        <input
-                            className="editGradeInput"
-                            type="number"
-                            placeholder="Grade"
-                            value={newGrade}
-                            onChange={(e) => setNewGrade(e.target.value)}
-                        />
-                        <button className="editGradeButton" type="submit">Update Grade</button>
-                        <button className="deleteGradeButton" type="button" onClick={handleDeleteGrade}>Delete Grade</button>
-                    </form>
-                </div>
+                <>
+                    <div className="editGradeCenter">
+                        <div className="editGradeTitleContainer">
+                            <Link to={`/grades/${assignment.class_id}/${assignment.student_id}`}>
+                                <button className="backButton">Back</button>
+                            </Link>
+                            <h1>Edit Class</h1>
+                        </div>
+                    </div>
+                    <div className="editGradeContainer">
+                        <form onSubmit={handleEditGrade} className="editGradeForm">
+                            <p className="formLabel">Assignment Name</p>
+                            <input
+                                className="editGradeInput"
+                                type="text"
+                                placeholder="Name"
+                                value={newName}
+                                onChange={(e) => setNewName(e.target.value)}
+                            />
+                            <p className="formLabel">Grade</p>
+                            <input
+                                className="editGradeInput"
+                                type="number"
+                                placeholder="Grade"
+                                value={newGrade}
+                                onChange={(e) => setNewGrade(e.target.value)}
+                            />
+                            <button className="editGradeButton" type="submit">Update Grade</button>
+                            <button className="deleteGradeButton" type="button" onClick={handleDeleteGrade}>Delete Grade</button>
+                        </form>
+                    </div>
+                </>
                 )
             }
         </>

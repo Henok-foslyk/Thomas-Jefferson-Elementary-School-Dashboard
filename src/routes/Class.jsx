@@ -99,11 +99,18 @@ function Class() {
             ) : (
                 classInfo ? (
                     <>
-                        <h1 className="classCenter">{classInfo.name}</h1>
+                        <div className="classCenter">
+                            <div className="classTitleContainer">
+                                <Link to={`/classes`}>
+                                    <button className="backButton">Back</button>
+                                </Link>
+                                <h1>{classInfo.name}</h1>
+                            </div>
+                        </div>
                         <div className="classCenter">
                             <div className="classInfo">
                                 <div>
-                                    <h3>Teacher: {teachers[classInfo.teacher_id]}</h3>
+                                    <h3 className="noTop">Teacher: {teachers[classInfo.teacher_id]}</h3>
                                     <h3>Roster Count: {classInfo.student_ids.length}</h3>
                                     <h3>Location: {classInfo.location}</h3>
                                     <h3>Average Grade: {averageGrade}</h3>

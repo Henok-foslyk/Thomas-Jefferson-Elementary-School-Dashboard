@@ -44,6 +44,32 @@
     cursor: pointer;
 }
 
+.classTitleContainer {
+    position:relative;
+    align-items: center;
+    width: 80%;
+    text-align:center;
+}
+
+.backButton {
+    position:absolute;
+    left:0;
+    top:50%;
+    transform: translateY(-50%);
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.noTop {
+    margin-top: 0px;
+}
+
 a {
     text-decoration: none;
 }

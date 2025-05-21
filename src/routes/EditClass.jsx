@@ -125,58 +125,67 @@ function editClass() {
             ) : error ? (
                 <p className="editClassCenter">{error}</p>
             ) : (
-                <div className="editClassContainer">
-                    <h1>Edit Class</h1>
-                    <form onSubmit={handleEditClass} className="editClassForm">
-                        <p className="formLabel">Name</p>
-                        <input
-                            className="editClassInput"
-                            type="text"
-                            placeholder="Class Name"
-                            value={newName}
-                            onChange={(e) => setNewName(e.target.value)}
-                        />
-                        <p className="formLabel">Location</p>
-                        <input
-                            className="editClassInput"
-                            type="text"
-                            placeholder="Location"
-                            value={newLocation}
-                            onChange={(e) => setNewLocation(e.target.value)}
-                        />
-                        <p className="formLabel">Teacher</p>
-                        <select
-                        className="editClassSelect"
-                        value={newTeacherId}
-                        onChange={(e) => setNewTeacherId(e.target.value)}
-                        >
-                            <option value="">Select a teacher</option>
-                            {Object.entries(filteredTeachers).map(([id, name]) => (
-                                <option key={id} value={id}>
-                                    {name}
-                                </option>
-                            ))}
-                        </select>
-                        <p className="formLabel">Students</p>
-                        <select
+                <> 
+                    <div className="editClassCenter">
+                        <div className="editClassTitleContainer">
+                            <Link to={`/class/${class_id}`}>
+                                <button className="backButton">Back</button>
+                            </Link>
+                            <h1>Edit Class</h1>
+                        </div>
+                    </div>
+                    <div className="editClassContainer">
+                        <form onSubmit={handleEditClass} className="editClassForm">
+                            <p className="formLabel">Name</p>
+                            <input
+                                className="editClassInput"
+                                type="text"
+                                placeholder="Class Name"
+                                value={newName}
+                                onChange={(e) => setNewName(e.target.value)}
+                            />
+                            <p className="formLabel">Location</p>
+                            <input
+                                className="editClassInput"
+                                type="text"
+                                placeholder="Location"
+                                value={newLocation}
+                                onChange={(e) => setNewLocation(e.target.value)}
+                            />
+                            <p className="formLabel">Teacher</p>
+                            <select
                             className="editClassSelect"
-                            multiple
-                            value={newStudents}
-                            onChange={(e) => {
-                                const selected = Array.from(e.target.selectedOptions, option => option.value);
-                                setNewStudents(selected);
-                            }}
+                            value={newTeacherId}
+                            onChange={(e) => setNewTeacherId(e.target.value)}
                             >
-                            {students.map((student) => (
-                                <option key={student.id} value={student.id}>
-                                {student.first} {student.last}
-                                </option>
-                            ))}
-                        </select>
-                        <button className="editClassButton" type="submit">Update Class</button>
-                        <button className="deleteClassButton" type="button" onClick={handleDeleteClass}>Delete Class</button>
-                    </form>
-                </div>
+                                <option value="">Select a teacher</option>
+                                {Object.entries(filteredTeachers).map(([id, name]) => (
+                                    <option key={id} value={id}>
+                                        {name}
+                                    </option>
+                                ))}
+                            </select>
+                            <p className="formLabel">Students</p>
+                            <select
+                                className="editClassSelect"
+                                multiple
+                                value={newStudents}
+                                onChange={(e) => {
+                                    const selected = Array.from(e.target.selectedOptions, option => option.value);
+                                    setNewStudents(selected);
+                                }}
+                                >
+                                {students.map((student) => (
+                                    <option key={student.id} value={student.id}>
+                                    {student.first} {student.last}
+                                    </option>
+                                ))}
+                            </select>
+                            <button className="editClassButton" type="submit">Update Class</button>
+                            <button className="deleteClassButton" type="button" onClick={handleDeleteClass}>Delete Class</button>
+                        </form>
+                    </div>
+                </>
                 )
             }
         </>
