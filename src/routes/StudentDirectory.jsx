@@ -1,4 +1,4 @@
-import { Box, Container, Typography, Pagination } from "@mui/material";
+import { Box, Container, Typography, Pagination, Button } from "@mui/material";
 import { useEffect, useState, useMemo } from "react";
 import { db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
@@ -17,12 +17,12 @@ export default function StudentDirectory() {
   // Fetch students data from database
   useEffect(() => {
     async function fetchStudents() {
-      const querySnapshot = await getDocs(collection(db, "students"));
-      const loaded = querySnapshot.docs.map((doc) => ({
+      const studentSnapshot = await getDocs(collection(db, "students"));
+      const students = studentSnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-      setStudentsData(loaded);
+      setStudentsData(students);
     }
     fetchStudents();
   }, []);
@@ -92,6 +92,12 @@ export default function StudentDirectory() {
             setPage(1);
           }}
         />
+
+        <Box sx={{ mb: 2, display: "flex", justifyContent: "flex-end" }}>
+          <Button variant="contained" color="primary">
+            Add Student
+          </Button>
+        </Box>
 
         <StudentTable rows={paginatedStudents} sortConfig={sortConfig} onSort={handleSort} />
 
