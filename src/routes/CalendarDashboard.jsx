@@ -2,6 +2,7 @@ import React from 'react'
 
 import Navbar from '../components/Navbar'
 import Calendar from '../components/Calendar';
+import EventTable from '../components/EventTable';
 import SearchEvent from '../components/SearchEvent';
 import NewEvent from '../components/NewEvent';
 import { Grid, Paper, Box, styled } from '@mui/material';
@@ -28,13 +29,15 @@ function CalendarDashboard() {
                 <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                     <Grid size={6}>
                         <Item><SearchEvent /></Item>
+                        <Item><EventTable /></Item>
                     </Grid>
                     <Grid size={6}>
                         <Item><Calendar /></Item>
+                        <Item><NewEvent /></Item>
                     </Grid>
                     
                     <Grid size={6}>
-                        <Item><NewEvent /></Item>
+                        
                     </Grid>
                 </Grid>
             </Box>

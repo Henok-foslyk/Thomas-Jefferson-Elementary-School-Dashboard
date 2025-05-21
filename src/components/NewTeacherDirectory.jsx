@@ -11,66 +11,54 @@ import {
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
-export default function NewStudent({ onAdd }) {
+export default function NewTeacherDirectory({ setTeachers }) {
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [newStudent, setNewStudent] = useState({
+  const [newTeacher, setNewTeacher] = useState({
     first: "",
     last: "",
-    year: "",
+    classId: "",
     email: "",
-    enrollmentYear: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewStudent((prev) => ({ ...prev, [name]: value }));
+    setNewTeacher((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleOpen = () => setDialogOpen(true);
   const handleClose = () => setDialogOpen(false);
 
+  // Function to handle adding a new teacher
   const handleSubmit = async () => {
-    // Create database document
-    const docRef = await addDoc(collection(db, "students"), {
-      first: newStudent.first,
-      last: newStudent.last,
-      year: Number(newStudent.year),
-      email: newStudent.email,
-      enrollmentYear: String(newStudent.enrollmentYear),
-      gpa: null,
+    // Write to database using auto-ID
+    const docRef = await addDoc(collection(db, "teachers"), {
+      first: newTeacher.first,
+      last: newTeacher.last,
+      class: newTeacher.classId,
+      email: newTeacher.email,
     });
 
-    // Build new student object
-    const newStudent = {
-      id: docRef.id,
-      first: newStudent.first,
-      last: newStudent.last,
-      year: Number(newStudent.year),
-      email: newStudent.email,
-      enrollmentYear: String(newStudent.enrollmentYear),
-      gpa: null,
-    };
-
-    onAdd(newStudent);
+    // Update local state
+    setTeachers((prev) => [...prev, { id: docRef.id, ...newTeacher }]);
 
     // Reset form & close dialog
-    setNewStudent({ first: "", last: "", year: "", email: "", enrollmentYear: "" });
+    setNewTeacher({ first: "", last: "", classId: "", email: "" });
     handleClose();
   };
 
   return (
     <Box mb={2} display="flex" justifyContent="flex-end">
       <Button variant="contained" color="primary" onClick={handleOpen}>
-        Add Student
+        Add Teacher
       </Button>
 
       <Dialog open={dialogOpen} onClose={handleClose}>
-        <DialogTitle>Add New Student</DialogTitle>
+        <DialogTitle>Add New Teacher</DialogTitle>
         <DialogContent>
           <TextField
             name="first"
             label="First Name"
-            value={newStudent.first}
+            value={newTeacher.first}
             onChange={handleChange}
             fullWidth
             margin="dense"
@@ -78,16 +66,15 @@ export default function NewStudent({ onAdd }) {
           <TextField
             name="last"
             label="Last Name"
-            value={newStudent.last}
+            value={newTeacher.last}
             onChange={handleChange}
             fullWidth
             margin="dense"
           />
           <TextField
-            name="year"
-            label="Year (0 for K)"
-            type="number"
-            value={newStudent.year}
+            name="class"
+            label="Class"
+            value={newTeacher.class}
             onChange={handleChange}
             fullWidth
             margin="dense"
@@ -95,16 +82,7 @@ export default function NewStudent({ onAdd }) {
           <TextField
             name="email"
             label="Email"
-            value={newStudent.email}
-            onChange={handleChange}
-            fullWidth
-            margin="dense"
-          />
-          <TextField
-            name="enrollmentYear"
-            label="Enrollment Year"
-            type="number"
-            value={newStudent.enrollmentYear}
+            value={newTeacher.email}
             onChange={handleChange}
             fullWidth
             margin="dense"

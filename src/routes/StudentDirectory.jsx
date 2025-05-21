@@ -6,14 +6,17 @@ import { collection, getDocs } from "firebase/firestore";
 import Navbar from "../components/Navbar.jsx";
 import SearchBar from "../components/SearchBar";
 import StudentTable from "../components/StudentTable.jsx";
-import NewStudent from "../components/NewStudent.jsx";
+import NewStudentDirectory from "../components/NewStudentDirectory.jsx";
+import DeleteStudentDirectory from "../components/DeleteStudentDirectory.jsx";
 
 export default function StudentDirectory() {
   const [studentsData, setStudentsData] = useState([]);
-  const [sortConfig, setSortConfig] = useState({ key: "id", direction: "asc" });
+  const [sortConfig, setSortConfig] = useState({ key: "last", direction: "asc" });
 
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
+
+  const [toDelete, setToDelete] = useState(null);
 
   const rowsPerPage = 20;
 
@@ -96,9 +99,23 @@ export default function StudentDirectory() {
           }}
         />
 
-        <NewStudent onAdd={(newStudent) => setStudentsData((prev) => [...prev, newStudent])} />
+        <NewStudentDirectory students={studentsData} setStudents={setStudentsData} />
 
-        <StudentTable rows={paginatedStudents} sortConfig={sortConfig} onSort={handleSort} />
+        <StudentTable
+          rows={paginatedStudents}
+          sortConfig={sortConfig}
+          onSort={handleSort}
+          onDelete={(student) => setToDelete(student)}
+        />
+
+        <DeleteStudentDirectory
+          student={toDelete}
+          open={Boolean(toDelete)}
+          onClose={() => setToDelete(null)}
+          onDeleted={(id) => {
+            setStudentsData((prev) => prev.filter((s) => s.id !== id));
+          }}
+        />
 
         <Box display="flex" justifyContent="flex-end" p={2}>
           <Pagination

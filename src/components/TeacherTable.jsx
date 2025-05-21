@@ -7,34 +7,35 @@ import {
   TableRow,
   Paper,
   TableSortLabel,
+  IconButton,
 } from "@mui/material";
 
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-
-
-export default function TeacherTable({ rows, sortConfig, onSort, classMap}) {
+export default function TeacherTable({ rows, sortConfig, onSort, classMap, onEdit, onDelete }) {
   // Column configuration for the table
   const columns = [
-    {
-      key: "id",
-      label: "ID",
-      sortable: true,
-      headerSx: { px: 3, width: 90 },
-      cellSx: { px: 3 },
-    },
+    // {
+    //   key: "id",
+    //   label: "ID",
+    //   sortable: true,
+    //   headerSx: { px: 3, width: 90 },
+    //   cellSx: { px: 3 },
+    // },
     {
       key: "first",
       label: "First",
       sortable: true,
-      headerSx: { px: 0, width: 170 },
-      cellSx: { px: 0 },
+      headerSx: { px: 5, width: 170 },
+      cellSx: { px: 5 },
     },
     {
       key: "last",
       label: "Last",
       sortable: true,
-      headerSx: { px: 2, width: 170 },
-      cellSx: { px: 2 },
+      headerSx: { px: 0, width: 170 },
+      cellSx: { px: 0 },
     },
     {
       key: "class",
@@ -42,7 +43,7 @@ export default function TeacherTable({ rows, sortConfig, onSort, classMap}) {
       sortable: true,
       headerSx: { px: 2, width: 170 },
       cellSx: { px: 2 },
-      render: (v) => classMap?.[v] || "Loading...",
+      render: (v) => classMap?.[v] || "—",
     },
     {
       key: "email",
@@ -50,6 +51,23 @@ export default function TeacherTable({ rows, sortConfig, onSort, classMap}) {
       sortable: false,
       headerSx: { px: 2, width: 250 },
       cellSx: { px: 2 },
+    },
+    {
+      key: "actions",
+      label: "",
+      sortable: false,
+      headerSx: { px: 0, width: 100 },
+      cellSx: { px: 2 },
+      render: (_, row) => (
+        <>
+          <IconButton size="small" onClick={() => onEdit(row)}>
+            <EditIcon fontSize="small" />
+          </IconButton>
+          <IconButton size="small" onClick={() => onDelete(row)}>
+            <DeleteIcon fontSize="small" />
+          </IconButton>
+        </>
+      ),
     },
   ];
   return (
