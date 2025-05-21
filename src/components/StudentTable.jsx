@@ -53,11 +53,11 @@ export default function StudentTable({ rows, sortConfig, onSort, onEdit, onDelet
       cellSx: { px: 2 },
     },
     {
-      key: "gpa",
-      label: "GPA",
+      key: "finalGrade",
+      label: "Final Grade",
       sortable: false,
-      headerSx: { px: 0, width: 80 },
-      cellSx: { px: 1 },
+      headerSx: { px: 1, width: 80 },
+      cellSx: { px: 3 },
       render: (v) => (v != null ? v.toFixed(2) : "—"),
     },
     {

@@ -38,13 +38,13 @@ export default function NewStudentDirectory({ setStudents }) {
       year: Number(newStudent.year),
       email: newStudent.email,
       enrollmentYear: String(newStudent.enrollmentYear),
-      gpa: null,
+      finalGrade: null,
     });
 
     // Update local state
     setStudents((prev) => [
       ...prev,
-      { id: docRef.id, ...newStudent, year: Number(newStudent.year), gpa: null },
+      { id: docRef.id, ...newStudent, year: Number(newStudent.year), finalGrade: null },
     ]);
 
     // Reset form & close dialog
