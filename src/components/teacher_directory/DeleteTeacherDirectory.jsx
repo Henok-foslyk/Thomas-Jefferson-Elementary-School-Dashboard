@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../../firebase";
 
 export default function DeleteTeacherDirectory({ teacher, open, onClose, onDeleted }) {
   if (!teacher) return null;
