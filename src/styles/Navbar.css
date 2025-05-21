@@ -11,6 +11,14 @@ body {
   align-items: center;
 }
 
+.navbar-logo {
+  margin-top: -7px;
+  margin-bottom: -7px;
+  margin-right: 25px;
+  height: 40px;
+  width: auto;
+}
+
 .navbar-links {
   list-style: none;
   display: flex;
