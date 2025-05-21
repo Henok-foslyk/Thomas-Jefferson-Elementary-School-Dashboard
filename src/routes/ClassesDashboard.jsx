@@ -11,6 +11,7 @@ import '../styles/ClassesDashboard.css'
 function ClassesDashboard() {
     const [classes, setClasses] = useState([]);
     const [teachers, setTeachers] = useState({});
+    const [filteredTeachers, setFilteredTeachers] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [newClassName, setNewClassName] = useState("");
@@ -33,6 +34,14 @@ function ClassesDashboard() {
                     teacherData[doc.id] = doc.data().first + " " + doc.data().last;
                 });
 
+                const filteredTeachersData = {};
+                teacherSnapshot.docs.forEach(doc => {
+                    if (doc.data().class == null) {
+                        filteredTeachersData[doc.id] = doc.data().first + " " + doc.data().last;
+                    }
+                });
+
+                setFilteredTeachers(filteredTeachersData);
                 setClasses(classData);
                 setTeachers(teacherData);
                 setLoading(false);
@@ -52,11 +61,15 @@ function ClassesDashboard() {
         }
 
         try {
-            await addDoc(collection(db, "classes"), {
+            const class_id = await addDoc(collection(db, "classes"), {
                 name: newClassName,
                 location: newLocation,
                 teacher_id: newTeacherId,
                 student_ids: []
+            });
+
+            await updateDoc(doc(db, "teachers", newTeacherId), {
+                class: class_id.id
             });
 
             setNewClassName("");
@@ -125,7 +138,7 @@ function ClassesDashboard() {
                         onChange={(e) => setNewTeacherId(e.target.value)}
                     >
                         <option value="">Select a teacher</option>
-                        {Object.entries(teachers).map(([id, name]) => (
+                        {Object.entries(filteredTeachers).map(([id, name]) => (
                             <option key={id} value={id}>
                                 {name}
                             </option>

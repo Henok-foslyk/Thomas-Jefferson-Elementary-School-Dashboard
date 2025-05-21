@@ -57,3 +57,18 @@
     align-content:left;
     font-weight: bold;
 }
+
+.deleteClassButton {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fa4d43;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.deleteClassButton:hover {
+    background-color: #cf3730;
+}
