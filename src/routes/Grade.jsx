@@ -97,7 +97,14 @@ function Grade() {
             ) : (
                 grades ? (
                     <>
-                        <h1 className="gradeCenter">{className} - {studentName}</h1>
+                        <div className="gradeCenter">
+                            <div className="gradeTitleContainer">
+                                <Link to={`/class/${class_id}`}>
+                                    <button className="backButton">Back</button>
+                                </Link>
+                                <h1>{className} - {studentName}</h1>
+                            </div>
+                        </div>
                         <div className="gradeHeader">
                             <p className="gradeCenter">Assignment</p>
                             <p className="gradeCenter">Grade</p>
@@ -132,18 +139,20 @@ function Grade() {
             <form onSubmit={handleAddGrade} className="gradeCenter">
                 <div className="gradeCenter">
                     <input
+                        className="gradeInput"
                         type="text"
                         placeholder="Assignment Name"
                         value={newName}
                         onChange={(e) => setNewName(e.target.value)}
                     />
                     <input
+                        className="gradeInput"
                         type="number"
                         placeholder="Grade"
                         value={newGrade}
                         onChange={(e) => setNewGrade(e.target.value)}
                     />
-                    <button type="submit">Add</button>
+                    <button className="gradeButton" type="submit">Add</button>
                 </div>
             </form>
 
