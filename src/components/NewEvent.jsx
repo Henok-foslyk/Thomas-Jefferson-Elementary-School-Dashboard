@@ -28,7 +28,7 @@ export default function NewEvent() {
         
     return (
         <>
-            <Container class="new-event-container">
+            <Container className="new-event-container">
                 <label> Date of Event <span></span>
                     <input
                         type="date"

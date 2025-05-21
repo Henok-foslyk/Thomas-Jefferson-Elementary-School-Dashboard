@@ -15,6 +15,10 @@
     "@fontsource/roboto": "^5.2.5",
     "@mui/icons-material": "^7.1.0",
     "@mui/material": "^7.1.0",
+<<<<<<< HEAD
+=======
+    "@mui/x-data-grid": "^8.3.1",
+>>>>>>> calendar
     "@mui/x-date-pickers": "^8.3.1",
     "dayjs": "^1.11.13",
     "firebase": "^11.8.0",

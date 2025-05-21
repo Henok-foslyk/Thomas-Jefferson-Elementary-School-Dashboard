@@ -33,6 +33,17 @@
     width: 80%;
 }
 
-.classInfoText {
-    
+.editButton {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
 }

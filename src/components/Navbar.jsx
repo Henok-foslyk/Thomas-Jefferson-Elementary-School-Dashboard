@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import "./Navbar.css";
+import logo from "../assets/logo-edited.png";
+import "../styles/Navbar.css";
 
 function Navbar() {
   const location = useLocation();
@@ -16,6 +17,9 @@ function Navbar() {
 
   return (
     <nav className="navbar">
+      <Link to="/" className="logo-link">
+        <img src={logo} alt="Logo" className="navbar-logo" />
+      </Link>
       <ul className="navbar-links">
         {links.map((link) => (
           <li key={link.path} className={`nav-item ${currentPath === link.path ? "active" : ""}`}>

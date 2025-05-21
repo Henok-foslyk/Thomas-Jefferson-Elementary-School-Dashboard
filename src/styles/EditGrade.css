@@ -1,0 +1,48 @@
+.editGradeCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.editGradeContainer {
+    max-width: 400px;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+.editGradeForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.editGradeInput {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.editGradeButton {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.editGradeButton:hover {
+    background-color: #218838;
+}
+
+.formLabel {
+    font-size: 1.1rem;
+    margin-bottom: -5px;
+    margin-top: -5px;
+    display:flex;
+    align-content:left;
+    font-weight: bold;
+}

@@ -6,7 +6,7 @@ import { collection, query, doc, getDocs, getDoc, addDoc, updateDoc, increment, 
 import { db } from "../firebase";
 
 import Navbar from '../components/Navbar'
-import './Class.css'
+import '../styles/Class.css'
 
 function Class() {
     const { id } = useParams();
@@ -39,7 +39,7 @@ function Class() {
             }));
 
             const filteredStudents = studentData.filter(student =>
-                classData.student_ids.includes(parseInt(student.id))
+                classData.student_ids.map(String).includes(String(student.id))
             );
 
             const gradesSnapshot = await getDocs(collection(db, "assignments"));
@@ -57,10 +57,7 @@ function Class() {
                 }
             })
 
-            setAverageGrade(avgGrade/gradeCount);
-
-            console.log(gradesData);
-            console.log(filteredStudents);
+            setAverageGrade((avgGrade/gradeCount).toFixed(2));
 
             const studentsWithGrades = filteredStudents.map(student => {
                 const studentGrades = gradesData.filter(
@@ -76,7 +73,7 @@ function Class() {
 
                 return {
                     ...student,
-                    grade: gradeCount !== 0 ? avgGrade / gradeCount : "N/A"
+                    grade: gradeCount !== 0 ? (avgGrade / gradeCount).toFixed(2) : "N/A"
                 };
             });
 
@@ -110,6 +107,9 @@ function Class() {
                                     <h3>Roster Count: {classInfo.student_ids.length}</h3>
                                     <h3>Location: {classInfo.location}</h3>
                                     <h3>Average Grade: {averageGrade}</h3>
+                                    <Link to={`/class/edit/${id}`}>
+                                        <button className="editButton">Edit</button>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -134,17 +134,15 @@ function Class() {
             ) : (
                 students.length > 0 ? (
                 students.map((item, index) => (
-                    <div key={item.id} className="classRow">
-                        <p className="classCenter">{item.first}</p>
-                        <p className="classCenter">{item.last}</p>
-                        <p className="classCenter">{item.year}</p>
-                        <p className="classCenter">{item.email}</p>
-                        <p className="classCenter">
-                            <Link to={`/grades/${id}/${item.id}`}>
-                                {item.grade}
-                            </Link>
-                        </p>
-                    </div>
+                    <Link to={`/grades/${id}/${item.id}`} key={item.id}>
+                        <div className="classRow">
+                                <p className="classCenter">{item.first}</p>
+                                <p className="classCenter">{item.last}</p>
+                                <p className="classCenter">{item.year}</p>
+                                <p className="classCenter">{item.email}</p>
+                                <p className="classCenter">{item.grade}</p>
+                        </div>
+                    </Link>
                 ))
                 ) : (
                 <p className="classesCenter">No students available</p>

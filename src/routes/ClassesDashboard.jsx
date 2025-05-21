@@ -6,13 +6,17 @@ import { collection, query, doc, getDocs, addDoc, updateDoc, increment, orderBy 
 import { db } from "../firebase";
 
 import Navbar from '../components/Navbar'
-import './ClassesDashboard.css'
+import '../styles/ClassesDashboard.css'
 
 function ClassesDashboard() {
     const [classes, setClasses] = useState([]);
     const [teachers, setTeachers] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [newClassName, setNewClassName] = useState("");
+    const [newLocation, setNewLocation] = useState("");
+    const [newTeacherId, setNewTeacherId] = useState("");
+
 
     useEffect(() => {
         const fetchClasses = async () => {
@@ -40,6 +44,33 @@ function ClassesDashboard() {
         fetchClasses();
     }, []);
 
+    const handleAddClass = async (e) => {
+        e.preventDefault();
+        if (!newClassName || !newLocation || !newTeacherId) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        try {
+            await addDoc(collection(db, "classes"), {
+                name: newClassName,
+                location: newLocation,
+                teacher_id: newTeacherId,
+                student_ids: []
+            });
+
+            setNewClassName("");
+            setNewLocation("");
+            setNewTeacherId("");
+
+            window.location.reload();
+        } catch (err) {
+            console.error("Error adding class:", err);
+            alert("Failed to add class.");
+        }
+    };
+
+
     return (
         <div>
             <Navbar/>
@@ -58,21 +89,52 @@ function ClassesDashboard() {
             ) : (
                 classes.length > 0 ? (
                 classes.map((item, index) => (
-                    <div key={item.id} className="classesRow">
-                        <p className="classesCenter">
-                            <Link to={`/class/${item.id}`}>
-                                {item.name}
-                            </Link>
-                        </p>
-                        <p className="classesCenter">{teachers[item.teacher_id]}</p>
-                        <p className="classesCenter">{item.student_ids.length}</p>
-                        <p className="classesCenter">{item.location}</p>
-                    </div>
+                    <Link key={item.id} to={`/class/${item.id}`}>
+                        <div className="classesRow">
+                            <p className="classesCenter">{item.name}</p>
+                            <p className="classesCenter">{teachers[item.teacher_id]}</p>
+                            <p className="classesCenter">{item.student_ids.length}</p>
+                            <p className="classesCenter">{item.location}</p>
+                        </div>
+                    </Link>
                 ))
                 ) : (
                 <p className="classesCenter">No classes available</p>
                 )
             )}
+            <h1 className="classesCenter">Add New Class</h1>
+            <form onSubmit={handleAddClass} className="classesCenter">
+                <div className="classesForm">
+                    <input
+                        className="classesTextField"
+                        type="text"
+                        placeholder="Class Name"
+                        value={newClassName}
+                        onChange={(e) => setNewClassName(e.target.value)}
+                    />
+                    <input
+                        className="classesTextField"
+                        type="text"
+                        placeholder="Location"
+                        value={newLocation}
+                        onChange={(e) => setNewLocation(e.target.value)}
+                    />
+                    <select
+                        className="classesSelect"
+                        value={newTeacherId}
+                        onChange={(e) => setNewTeacherId(e.target.value)}
+                    >
+                        <option value="">Select a teacher</option>
+                        {Object.entries(teachers).map(([id, name]) => (
+                            <option key={id} value={id}>
+                                {name}
+                            </option>
+                        ))}
+                    </select>
+                    <button className="classesButton" type="submit">Add Class</button>
+                </div>
+            </form>
+
         </div>
     )
 }
