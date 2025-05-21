@@ -1,7 +1,18 @@
-import { Box, Container, Typography, Pagination, Button } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  Pagination,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+} from "@mui/material";
 import { useEffect, useState, useMemo } from "react";
 import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 
 import Navbar from "../components/Navbar.jsx";
 import SearchBar from "../components/SearchBar";
@@ -10,8 +21,19 @@ import StudentTable from "../components/StudentTable.jsx";
 export default function StudentDirectory() {
   const [studentsData, setStudentsData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "id", direction: "asc" });
+
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [newStudent, setNewStudent] = useState({
+    first: "",
+    last: "",
+    year: "",
+    email: "",
+    enrollmentYear: "",
+  });
+
   const rowsPerPage = 20;
 
   // Fetch students data from database
@@ -51,14 +73,6 @@ export default function StudentDirectory() {
     return sorted;
   }, [sortConfig, studentsData]);
 
-  // Function to handle sorting when a column header is clicked
-  function handleSort(key) {
-    setSortConfig((prev) => ({
-      key,
-      direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
-    }));
-  }
-
   // useMemo to memoize the filtered students
   const filteredStudents = useMemo(() => {
     if (!searchQuery) return sortedStudents;
@@ -75,6 +89,38 @@ export default function StudentDirectory() {
 
     return filteredStudents.slice(start, start + rowsPerPage);
   }, [page, filteredStudents]);
+
+  const handleAddStudent = async () => {
+    // Create a new doc in the students collection
+    const docRef = await addDoc(collection(db, "students"), {
+      first: newStudent.first,
+      last: newStudent.last,
+      year: Number(newStudent.year),
+      email: newStudent.email,
+      enrollmentYear: String(newStudent.enrollmentYear),
+      gpa: null,
+    });
+
+    // Update local state
+    setStudentsData((prev) => [...prev, { id: docRef.id, ...newStudent, gpa: null }]);
+
+    // Reset & close
+    setNewStudent({ first: "", last: "", year: "", email: "", enrollmentYear: "" });
+    setDialogOpen(false);
+  };
+
+  // Function to handle sorting when a column header is clicked
+  function handleSort(key) {
+    setSortConfig((prev) => ({
+      key,
+      direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
+    }));
+  }
+
+  const handleNewChange = (e) => {
+    const { name, value } = e.target;
+    setNewStudent((prev) => ({ ...prev, [name]: value }));
+  };
 
   return (
     <>
@@ -94,7 +140,7 @@ export default function StudentDirectory() {
         />
 
         <Box sx={{ mb: 2, display: "flex", justifyContent: "flex-end" }}>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={() => setDialogOpen(true)}>
             Add Student
           </Button>
         </Box>
@@ -112,6 +158,60 @@ export default function StudentDirectory() {
           />
         </Box>
       </Container>
+
+      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+        <DialogTitle>Add New Student</DialogTitle>
+        <DialogContent>
+          <TextField
+            name="first"
+            label="First Name"
+            value={newStudent.first}
+            onChange={handleNewChange}
+            fullWidth
+            margin="dense"
+          />
+          <TextField
+            name="last"
+            label="Last Name"
+            value={newStudent.last}
+            onChange={handleNewChange}
+            fullWidth
+            margin="dense"
+          />
+          <TextField
+            name="year"
+            label="Year (0 for Kindergarten)"
+            type="number"
+            value={newStudent.year}
+            onChange={handleNewChange}
+            fullWidth
+            margin="dense"
+          />
+          <TextField
+            name="email"
+            label="Email"
+            value={newStudent.email}
+            onChange={handleNewChange}
+            fullWidth
+            margin="dense"
+          />
+          <TextField
+            name="enrollmentYear"
+            label="Enrollment Year"
+            type="number"
+            value={newStudent.enrollmentYear}
+            onChange={handleNewChange}
+            fullWidth
+            margin="dense"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDialogOpen(false)}>Cancel</Button>
+          <Button onClick={handleAddStudent} variant="contained">
+            Add
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
