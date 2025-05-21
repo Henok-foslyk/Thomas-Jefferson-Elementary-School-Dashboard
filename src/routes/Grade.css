@@ -1,10 +1,10 @@
-.classCenter {
+.gradeCenter {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.classHeader {
+.gradeHeader {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     align-items: center;
@@ -16,7 +16,7 @@
     border-radius: 20px;
 }
 
-.classRow {
+.gradeRow {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     align-items: center;
@@ -29,6 +29,6 @@
     border-radius: 20px;
 }
 
-.classInfo {
+.gradeInfo {
     width: 80%;
 }
