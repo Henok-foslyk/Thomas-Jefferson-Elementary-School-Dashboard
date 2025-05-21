@@ -16,7 +16,7 @@ import {
   updateDoc,
   arrayRemove,
 } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../../firebase";
 
 export default function DeleteStudentDirectory({ student, open, onClose, onDeleted }) {
   if (!student) return null;

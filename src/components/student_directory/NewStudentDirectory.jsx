@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../../firebase";
 
 export default function NewStudentDirectory({ setStudents }) {
   const [dialogOpen, setDialogOpen] = useState(false);

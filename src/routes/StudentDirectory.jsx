@@ -5,9 +5,9 @@ import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 
 import Navbar from "../components/Navbar.jsx";
 import SearchBar from "../components/SearchBar";
-import StudentTable from "../components/StudentTable.jsx";
-import NewStudentDirectory from "../components/NewStudentDirectory.jsx";
-import DeleteStudentDirectory from "../components/DeleteStudentDirectory.jsx";
+import StudentTable from "../components/student_directory/StudentTable.jsx";
+import NewStudentDirectory from "../components/student_directory/NewStudentDirectory.jsx";
+import DeleteStudentDirectory from "../components/student_directory/DeleteStudentDirectory.jsx";
 
 export default function StudentDirectory() {
   const [studentsData, setStudentsData] = useState([]);
