@@ -11,12 +11,13 @@ import {
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
-export default function NewTeacherDirectory({ setTeachers }) {
+export default function NewTeacher({ setTeachers }) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [newTeacher, setNewTeacher] = useState({
     first: "",
     last: "",
     email: "",
+    phone: "",
   });
 
   const handleChange = (e) => {
@@ -35,13 +36,14 @@ export default function NewTeacherDirectory({ setTeachers }) {
       last: newTeacher.last,
       class: null,
       email: newTeacher.email,
+      phone: newTeacher.phone,
     });
 
     // Update local state
     setTeachers((prev) => [...prev, { id: docRef.id, ...newTeacher, class: null }]);
 
     // Reset form & close dialog
-    setNewTeacher({ first: "", last: "", email: "" });
+    setNewTeacher({ first: "", last: "", email: "", phone: "" });
     handleClose();
   };
 
@@ -74,6 +76,14 @@ export default function NewTeacherDirectory({ setTeachers }) {
             name="email"
             label="Email"
             value={newTeacher.email}
+            onChange={handleChange}
+            fullWidth
+            margin="dense"
+          />
+          <TextField
+            name="phone"
+            label="Phone"
+            value={newTeacher.phone}
             onChange={handleChange}
             fullWidth
             margin="dense"

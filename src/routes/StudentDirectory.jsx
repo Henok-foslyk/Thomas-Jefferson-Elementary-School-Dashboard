@@ -7,8 +7,9 @@ import "../styles/StudentDirectory.css";
 import Navbar from "../components/Navbar.jsx";
 import SearchBar from "../components/SearchBar";
 import StudentTable from "../components/student_directory/StudentTable.jsx";
-import NewStudentDirectory from "../components/student_directory/NewStudentDirectory.jsx";
-import DeleteStudentDirectory from "../components/student_directory/DeleteStudentDirectory.jsx";
+import NewStudent from "../components/student_directory/NewStudent.jsx";
+import EditStudent from "../components/student_directory/EditStudent.jsx";
+import DeleteStudent from "../components/student_directory/DeleteStudent.jsx";
 
 export default function StudentDirectory() {
   const [studentsData, setStudentsData] = useState([]);
@@ -21,6 +22,7 @@ export default function StudentDirectory() {
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
 
+  const [toEdit, setEditStudent] = useState(null);
   const [toDelete, setToDelete] = useState(null);
 
   const rowsPerPage = 20;
@@ -185,16 +187,23 @@ export default function StudentDirectory() {
           />
         </Box>
 
-        <NewStudentDirectory students={studentsData} setStudents={setStudentsData} />
+        <NewStudent students={studentsData} setStudents={setStudentsData} />
 
         <StudentTable
           rows={paginatedStudents}
           sortConfig={sortConfig}
           onSort={handleSort}
+          onEdit={(student) => setEditStudent(student)}
           onDelete={(student) => setToDelete(student)}
         />
 
-        <DeleteStudentDirectory
+        <EditStudent
+          student={toEdit}
+          onClose={() => setEditStudent(null)}
+          setStudents={setStudentsData}
+        />
+
+        <DeleteStudent
           student={toDelete}
           open={Boolean(toDelete)}
           onClose={() => setToDelete(null)}
