@@ -1,12 +1,14 @@
-import { Container, gridClasses, Table, TableContainer } from "@mui/material";
+import { Button, Container, gridClasses, Table, TableContainer, Dialog } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";   
 import { Paper } from "@mui/material";
 
+import EventEditDialog from "./EventEditDialog";
+
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 
-import "../../styles/Calendar.css";
+import "../../styles/Calendar.css"
 
 const columns = [
     { field: 'date', headerName: 'Date', width: 130 },
@@ -14,12 +16,18 @@ const columns = [
     { field: 'location', headerName: 'Location', width: 130}
 ]
 
-const paginationModel = { page: 0, pageSize: 5 };
+const paginationModel = { page: 0, pageSizeOption: 5 };
 
 export default function EventTable() {
     const [search, setSearch] = useState('');
     const [rows, setRows] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [message, setMessage] = useState('');
+    const [selectedId, setSelectedId] = useState(null);
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedEventName, setSelectedEventName] = useState(null);
+    const [selectedLocation, setSelectedLocation] = useState(null);
+    const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
         const getEvents = async () => {
@@ -51,8 +59,16 @@ export default function EventTable() {
         }
     }, [rows])
 
-    const handleSelection = () => {
-        console.log("selected");
+    useEffect(() => {
+        if(message) {
+            console.log(message) 
+        }
+    }, [message])
+
+    const handleEdit = () => {
+        console.log("editing!");
+        setIsEditing(!isEditing);
+        
     }
 
     return (
@@ -64,10 +80,44 @@ export default function EventTable() {
                         columns={columns}
                         initialState={{ pagination: { paginationModel } }}
                         pageSizeOption={[5, 10]}
-                        checkboxSelection
+                        checkboxSelection={false}
                         loading={isLoading}
+                        onRowClick={(params) => { 
+                            if (selectedId === params.id) {
+                                setSelectedId(null);
+                                setSelectedDate(null);
+                                setSelectedEventName(null);
+                                setSelectedLocation(null);                                
+                            }
+                            else {
+                                const row = params.row;
+                                setSelectedId(row.id);
+                                setSelectedDate(row.date);
+                                setSelectedEventName(row["event-name"]);
+                                setSelectedLocation(row.location); 
+                                console.log(row["event-name"]);
+                            }
+                        }}
                         sx={{ border: 0 }}            
-                    />
+                    /><br></br>
+                    {selectedId && (
+                        <Button 
+                            variant="outlined"
+                            onClick={() => handleEdit()}
+                        >
+                            Edit
+                        </Button>
+                    )}
+                    {isEditing && (
+                        <EventEditDialog 
+                            id={selectedId}
+                            date={selectedDate}
+                            event={selectedEventName}
+                            location={selectedLocation}
+                            open={isEditing}
+                            onClose={() => setIsEditing(false)}
+                        />
+                    )}
                 </Paper>
             </Container>
             
