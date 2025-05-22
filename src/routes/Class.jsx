@@ -51,7 +51,7 @@ function Class() {
             let avgGrade = 0.0;
             let gradeCount = 0;
             gradesData.forEach(item => {
-                if (item.class_id == id) {
+                if (item.class_id == id && classData.student_ids.map(String).includes(String(item.student_id))) {
                     avgGrade += item.grade
                     gradeCount += 1
                 }
