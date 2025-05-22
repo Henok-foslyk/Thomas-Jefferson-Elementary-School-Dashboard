@@ -22,7 +22,7 @@ export default function EnrolledClassesPanel({ open, classes }) {
               <TableCell className="enrolled-classes-cell">Class</TableCell>
               <TableCell className="enrolled-classes-cell">Teacher</TableCell>
               <TableCell align="right" className="enrolled-classes-cell">
-                Avg Grade
+                Grade
               </TableCell>
             </TableRow>
           </TableHead>
