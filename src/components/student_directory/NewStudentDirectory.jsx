@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import "../../styles/StudentDirectory.css";
 
 export default function NewStudentDirectory({ setStudents }) {
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -53,7 +54,7 @@ export default function NewStudentDirectory({ setStudents }) {
   };
 
   return (
-    <Box mb={2} display="flex" justifyContent="flex-end">
+    <Box className="new-student-container">
       <Button variant="contained" color="primary" onClick={handleOpen}>
         Add Student
       </Button>

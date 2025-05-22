@@ -8,26 +8,20 @@ import {
   TableCell,
   TableBody,
 } from "@mui/material";
+import "../../styles/StudentDirectory.css";
 
 export default function EnrolledClassesPanel({ open, classes }) {
   return (
     <Collapse in={open} unmountOnExit>
-      <Box
-        margin={2}
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
+      <Box className="enrolled-classes-panel">
         <Typography variant="h6">Enrolled Classes:</Typography>
 
-        <Table size="small" sx={{ maxWidth: 450 }}>
-          <TableHead sx={{ backgroundColor: "#ddd" }}>
+        <Table size="small" className="enrolled-classes-table">
+          <TableHead className="enrolled-classes-header">
             <TableRow>
-              <TableCell sx={{ fontWeight: "bold", width: 150 }}>Class</TableCell>
-              <TableCell sx={{ fontWeight: "bold" }}>Teacher</TableCell>
-              <TableCell align="right" sx={{ fontWeight: "bold" }}>
+              <TableCell className="enrolled-classes-cell">Class</TableCell>
+              <TableCell className="enrolled-classes-cell">Teacher</TableCell>
+              <TableCell align="right" className="enrolled-classes-cell">
                 Avg Grade
               </TableCell>
             </TableRow>
@@ -38,7 +32,7 @@ export default function EnrolledClassesPanel({ open, classes }) {
                 <TableRow key={className}>
                   <TableCell>{className}</TableCell>
                   <TableCell>{teacherFullName}</TableCell>
-                  <TableCell align="right">
+                  <TableCell className="enrolled-classes-cell">
                     {avgGrade != null ? avgGrade.toFixed(1) : "—"}
                   </TableCell>
                 </TableRow>

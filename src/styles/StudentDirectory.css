@@ -1,0 +1,76 @@
+/*************************************************************************
+ * StudentDirectory.jsx styles
+ * This section contains the CSS styles for the StudentDirectory route.
+ *************************************************************************/
+.student-directory-container {
+  margin-top: 1.5rem;
+}
+.search-bar-container {
+  margin: 0.5rem, 0;
+}
+.pagination-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+/*************************************************************************
+ * StudentTable.jsx styles
+ * This section contains the CSS styles for the StudentTable component.
+ *************************************************************************/
+
+/* Container and table layout */
+.student-table-container {
+  max-height: 800px;
+}
+.student-table {
+  table-layout: fixed;
+}
+
+/* Header styles */
+.student-table-header th {
+  background-color: #ddd;
+  font-weight: bold;
+}
+.student-table-header th:first-child {
+  width: 40px;
+}
+
+/*************************************************************************
+ * EnrolledClassesTable.jsx styles
+ * This section contains the CSS styles for the EnrolledClassesTable component.
+ *************************************************************************/
+
+/* Expand/collapse panel */
+.enrolled-classes-panel {
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.enrolled-classes-table {
+  max-width: 450px;
+}
+.enrolled-classes-header {
+  background-color: #ddd;
+  font-weight: bold;
+}
+.enrolled-classes-header th {
+  font-weight: bold;
+}
+.enrolled-classes-cell:first-child {
+  width: 150px;
+}
+.enrolled-classes-cell:last-child {
+  text-align: right;
+}
+
+/*************************************************************************
+ * NewStudentDirectory.jsx styles
+ * This section contains the CSS styles for the NewStudentDirectory component.
+ *************************************************************************/
+.new-student-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+}

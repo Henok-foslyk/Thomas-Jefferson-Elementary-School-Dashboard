@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import ExpandableStudentRow from "./ExpandableStudentRow";
 import StudentTableHeader from "./StudentTableHeader.jsx";
+import "../../styles/StudentDirectory.css";
 
 export default function StudentTable({ rows, sortConfig, onSort, onEdit, onDelete }) {
   const [openRow, setOpenRow] = useState({});
@@ -76,8 +77,8 @@ export default function StudentTable({ rows, sortConfig, onSort, onEdit, onDelet
   ];
 
   return (
-    <TableContainer component={Paper} sx={{ maxHeight: 800 }}>
-      <Table stickyHeader sx={{ tableLayout: "fixed" }}>
+    <TableContainer component={Paper} className="student-table-container">
+      <Table stickyHeader className="student-table">
         {/* TableHead is where the column headers are defined */}
         <StudentTableHeader columns={columns} sortConfig={sortConfig} onSort={onSort} />
 

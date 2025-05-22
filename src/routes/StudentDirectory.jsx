@@ -3,6 +3,7 @@ import { useEffect, useState, useMemo } from "react";
 import { db } from "../firebase";
 import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 
+import "../styles/StudentDirectory.css";
 import Navbar from "../components/Navbar.jsx";
 import SearchBar from "../components/SearchBar";
 import StudentTable from "../components/student_directory/StudentTable.jsx";
@@ -169,18 +170,20 @@ export default function StudentDirectory() {
     <>
       <Navbar />
 
-      <Container maxWidth="lg" sx={{ mt: 4 }}>
+      <Container maxWidth="lg" className="student-directory-container">
         <Typography variant="h5" align="center" gutterBottom>
           Students
         </Typography>
 
-        <SearchBar
-          value={searchQuery}
-          onChange={(e) => {
-            setSearchQuery(e.target.value);
-            setPage(1);
-          }}
-        />
+        <Box className="search-bar-container">
+          <SearchBar
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setPage(1);
+            }}
+          />
+        </Box>
 
         <NewStudentDirectory students={studentsData} setStudents={setStudentsData} />
 
@@ -200,7 +203,7 @@ export default function StudentDirectory() {
           }}
         />
 
-        <Box display="flex" justifyContent="flex-end" p={2}>
+        <Box className="pagination-container">
           <Pagination
             count={Math.ceil(filteredStudents.length / rowsPerPage)}
             page={page}
