@@ -1,18 +1,9 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  TableSortLabel,
-  IconButton,
-} from "@mui/material";
+import { Table, TableBody, TableContainer, Paper, IconButton } from "@mui/material";
 import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import { useState } from "react";
 
 import ExpandableStudentRow from "./ExpandableStudentRow";
+import StudentTableHeader from "./StudentTableHeader.jsx";
 
 export default function StudentTable({ rows, sortConfig, onSort, onEdit, onDelete }) {
   const [openRow, setOpenRow] = useState({});
@@ -88,27 +79,7 @@ export default function StudentTable({ rows, sortConfig, onSort, onEdit, onDelet
     <TableContainer component={Paper} sx={{ maxHeight: 800 }}>
       <Table stickyHeader sx={{ tableLayout: "fixed" }}>
         {/* TableHead is where the column headers are defined */}
-        <TableHead>
-          <TableRow>
-            {/* Expand cell for the row toggle */}
-            <TableCell sx={{ width: 40, backgroundColor: "#ddd" }} />
-            {columns.map((col) => (
-              <TableCell key={col.key} sx={{ ...col.headerSx, backgroundColor: "#ddd", top: 0 }}>
-                {col.sortable ? (
-                  <TableSortLabel
-                    active={sortConfig.key === col.key}
-                    direction={sortConfig.direction}
-                    onClick={() => onSort(col.key)}
-                  >
-                    <strong>{col.label}</strong>
-                  </TableSortLabel>
-                ) : (
-                  <strong>{col.label}</strong>
-                )}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
+        <StudentTableHeader columns={columns} sortConfig={sortConfig} onSort={onSort} />
 
         {/* TableBody is where the actual data rows are rendered */}
         <TableBody>
