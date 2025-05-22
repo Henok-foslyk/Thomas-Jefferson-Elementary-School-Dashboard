@@ -8,9 +8,6 @@ import {
   Paper,
   TableSortLabel,
   IconButton,
-  Collapse,
-  Box,
-  Typography,
 } from "@mui/material";
 import {
   KeyboardArrowDown as ExpandMoreIcon,
@@ -19,6 +16,8 @@ import {
   Delete as DeleteIcon,
 } from "@mui/icons-material";
 import React, { useState } from "react";
+
+import EnrolledClassesTable from "./EnrolledClassesTable.jsx";
 
 export default function StudentTable({ rows, sortConfig, onSort, onEdit, onDelete }) {
   const [openRow, setOpenRow] = useState({});
@@ -29,13 +28,6 @@ export default function StudentTable({ rows, sortConfig, onSort, onEdit, onDelet
 
   // Column configuration for the table
   const columns = [
-    // {
-    //   key: "id",
-    //   label: "ID",
-    //   sortable: true,
-    //   headerSx: { px: 3, width: 30 },
-    //   cellSx: { px: 3 },
-    // },
     {
       key: "first",
       label: "First",
@@ -144,50 +136,8 @@ export default function StudentTable({ rows, sortConfig, onSort, onEdit, onDelet
 
               <TableRow>
                 <TableCell colSpan={columns.length + 1} sx={{ p: 0 }}>
-                  <Collapse in={openRow === row.id} unmountOnExit>
-                    <Box
-                      margin={2}
-                      sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Typography variant="h6">Enrolled Classes:</Typography>
-                      <Table size="small" sx={{ maxWidth: 450 }}>
-                        <TableHead sx={{ backgroundColor: "#ddd" }}>
-                          <TableRow>
-                            <TableCell sx={{ fontWeight: "bold", width: 150 }}>Class</TableCell>
-                            <TableCell sx={{ fontWeight: "bold" }}>Teacher</TableCell>
-                            <TableCell align="right" sx={{ fontWeight: "bold" }}>
-                              Avg Grade
-                            </TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {row.classes.length > 0 ? (
-                            row.classes.map(({ className, teacherFullName, avgGrade }) => (
-                              <TableRow key={className}>
-                                <TableCell>{className}</TableCell>
-                                <TableCell>{teacherFullName}</TableCell>
-                                <TableCell align="right">
-                                  {avgGrade != null ? avgGrade.toFixed(1) : "—"}
-                                </TableCell>
-                              </TableRow>
-                            ))
-                          ) : (
-                            // student has no classes — render one “blank” row
-                            <TableRow>
-                              <TableCell>—</TableCell>
-                              <TableCell>—</TableCell>
-                              <TableCell align="right">—</TableCell>
-                            </TableRow>
-                          )}
-                        </TableBody>
-                      </Table>
-                    </Box>
-                  </Collapse>
+                  {/* Enrolled classes table */}
+                  <EnrolledClassesTable open={openRow === row.id} classes={row.classes} />
                 </TableCell>
               </TableRow>
             </React.Fragment>
