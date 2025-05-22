@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
 
@@ -7,7 +6,6 @@ import { db } from "../firebase";
 
 import Navbar from '../components/Navbar'
 import '../styles/ClassesDashboard.css'
-import "../styles/global.css";
 
 function ClassesDashboard() {
     const [classes, setClasses] = useState([]);

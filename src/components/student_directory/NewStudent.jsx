@@ -9,6 +9,8 @@ import {
   InputAdornment,
   TextField,
 } from "@mui/material";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import "../../styles/StudentDirectory.css";
@@ -57,6 +59,7 @@ export default function NewStudentDirectory({ setStudents }) {
   return (
     <Box className="new-student-container">
       <Button variant="contained" color="primary" onClick={handleOpen}>
+        <PersonAddAlt1Icon fontSize="small" sx={{ mr: 1, mb: 0.3 }} />
         Add Student
       </Button>
 

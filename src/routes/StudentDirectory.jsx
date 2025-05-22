@@ -4,7 +4,6 @@ import { db } from "../firebase";
 import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 
 import "../styles/StudentDirectory.css";
-import "../styles/global.css";
 import Navbar from "../components/Navbar.jsx";
 import SearchBar from "../components/SearchBar";
 import StudentTable from "../components/student_directory/StudentTable.jsx";

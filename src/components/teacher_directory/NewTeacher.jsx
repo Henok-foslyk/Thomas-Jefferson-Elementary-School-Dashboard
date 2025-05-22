@@ -9,6 +9,8 @@ import {
   InputAdornment,
   TextField,
 } from "@mui/material";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
@@ -90,6 +92,7 @@ export default function NewTeacher({ setTeachers }) {
   return (
     <Box mb={4} display="flex" justifyContent="flex-end">
       <Button variant="contained" color="primary" onClick={handleOpen}>
+        <PersonAddAlt1Icon fontSize="small" sx={{ mr: 1, mb: 0.3 }} />
         Add Teacher
       </Button>
 

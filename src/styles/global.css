@@ -15,13 +15,13 @@ h5 {
   justify-content: center;
 }
 .MuiTypography-h5 {
-  font-family: "Roboto", sans-serif;
-  font-weight: bold;
-  margin-top: 2rem;
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: bold !important;
+  margin-top: 2rem !important;
+  font-size: 2rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .MuiButton-containedPrimary {
