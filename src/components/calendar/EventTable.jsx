@@ -1,4 +1,5 @@
 import { Button, Container, gridClasses, Table, TableContainer, Dialog } from "@mui/material";
+import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";   
 import { Paper } from "@mui/material";
@@ -11,15 +12,15 @@ import { db } from "../../firebase";
 import "../../styles/Calendar.css"
 
 const columns = [
-    { field: 'date', headerName: 'Date', width: 130 },
+    { field: 'date', headerName: 'Date', width: 130, editable: true},
     { field: 'event-name', headerName: 'Event Name', width: 130},
     { field: 'location', headerName: 'Location', width: 130}
 ]
 
 const paginationModel = { page: 0, pageSizeOption: 5 };
 
-export default function EventTable() {
-    const [search, setSearch] = useState('');
+export default function EventTable({ search }) {
+    
     const [rows, setRows] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [message, setMessage] = useState('');
@@ -73,18 +74,21 @@ export default function EventTable() {
 
     return (
         <>
-            <Container className="search-event-container">
+            
                 <Paper sx={{ height: 400, width: '100%' }}>
                     <DataGrid
                         rows={rows}
                         columns={columns}
+                        editMode="row"
                         initialState={{ 
                             pagination: { paginationModel },
                                 sorting: { sortModel: [{ field: 'date', sort: 'desc'}] } 
                         }}
+                        
                         pageSizeOption={[5, 10]}
                         checkboxSelection={false}
                         loading={isLoading}
+                        hideFooterSelectedRowCount
                         onRowClick={(params) => { 
                             if (selectedId === params.id) {
                                 setSelectedId(null);
@@ -102,7 +106,8 @@ export default function EventTable() {
                             }
                         }}
                         sx={{ border: 0 }}            
-                    /><br></br>
+                    />
+                </Paper>
                     {selectedId && (
                         <Button 
                             variant="outlined"
@@ -121,8 +126,8 @@ export default function EventTable() {
                             onClose={() => setIsEditing(false)}
                         />
                     )}
-                </Paper>
-            </Container>
+                
+          
             
         </>
     );

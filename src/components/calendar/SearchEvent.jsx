@@ -1,17 +1,20 @@
-import { Container } from "@mui/material";
+import { TextField } from "@mui/material";
 import { useState } from "react";   
 
 import "../../styles/Calendar.css";
 
-export default function SearchEvent() {
-    const [search, setSearch] = useState('');
+export default function SearchEvent({ search, setSearch }) {
+    
 
     return (
         <>
-            <Container className="search-event-container">
-                <input placeholder="Search by event name"/>
-            </Container>
-            
+            <TextField
+                fullWidth
+                label="Search events"
+                variant="outlined"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+            />
         </>
     )
 }
