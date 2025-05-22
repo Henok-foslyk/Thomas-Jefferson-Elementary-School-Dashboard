@@ -18,6 +18,7 @@ export default function EditStudent({ student, onClose, setStudents }) {
     last: "",
     year: "",
     email: "",
+    dateOfBirth: "",
   });
 
   // Set initial form values when student prop changes
@@ -28,6 +29,7 @@ export default function EditStudent({ student, onClose, setStudents }) {
         last: student.last ?? "",
         year: student.year ?? "",
         email: student.email ?? "",
+        dateOfBirth: student.dateOfBirth ?? "",
       });
     }
   }, [student]);
@@ -44,18 +46,21 @@ export default function EditStudent({ student, onClose, setStudents }) {
 
     // Validate inputs
     const updates = {};
-    if (editStudent.first.trim() !== "" && editStudent.first !== student.first) {
+
+    if (editStudent.first.trim() !== "" && editStudent.first !== student.first)
       updates.first = editStudent.first;
-    }
-    if (editStudent.last.trim() !== "" && editStudent.last !== student.last) {
+
+    if (editStudent.last.trim() !== "" && editStudent.last !== student.last)
       updates.last = editStudent.last;
-    }
-    if (editStudent.year !== "" && Number(editStudent.year) !== student.year) {
+
+    if (editStudent.year !== "" && Number(editStudent.year) !== student.year)
       updates.year = Number(editStudent.year);
-    }
-    if (editStudent.email.trim() !== "" && editStudent.email !== student.email) {
+
+    if (editStudent.email.trim() !== "" && editStudent.email !== student.email)
       updates.email = editStudent.email;
-    }
+
+    if (editStudent.dateOfBirth && editStudent.dateOfBirth !== student.dateOfBirth)
+      updates.dateOfBirth = editStudent.dateOfBirth;
 
     // If nothing changed, just close
     if (Object.keys(updates).length === 0) {
@@ -132,6 +137,21 @@ export default function EditStudent({ student, onClose, setStudents }) {
                   </Button>
                 </InputAdornment>
               ),
+            },
+          }}
+        />
+        <TextField
+          name="dateOfBirth"
+          label="Date of Birth"
+          type="date"
+          value={editStudent.dateOfBirth}
+          onChange={handleChange}
+          fullWidth
+          margin="dense"
+          slotProps={{
+            label: { shrink: true },
+            input: {
+              sx: { padding: "23px 0px 0px" },
             },
           }}
         />

@@ -62,6 +62,7 @@ export default function NewStudentDirectory({ setStudents }) {
 
       <Dialog open={dialogOpen} onClose={handleClose}>
         <DialogTitle>Add New Student</DialogTitle>
+
         <DialogContent>
           <TextField
             name="first"
@@ -117,13 +118,19 @@ export default function NewStudentDirectory({ setStudents }) {
             }}
           />
           <TextField
-            name="enrollmentYear"
-            label="Enrollment Year"
-            type="number"
-            value={newStudent.enrollmentYear}
+            name="dateOfBirth"
+            label="Date of Birth"
+            type="date"
+            value={newStudent.dateOfBirth}
             onChange={handleChange}
             fullWidth
             margin="dense"
+            slotProps={{
+              label: { shrink: true },
+              input: {
+                sx: { padding: "23px 0px 0px" },
+              },
+            }}
           />
         </DialogContent>
         <DialogActions>

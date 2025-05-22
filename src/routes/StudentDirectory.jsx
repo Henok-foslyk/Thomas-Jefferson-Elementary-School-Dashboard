@@ -123,12 +123,14 @@ export default function StudentDirectory() {
       let aKey = a[sortConfig.key];
       let bKey = b[sortConfig.key];
 
-      // Numeric-sort for year & enrollmentYear
-      if (
-        sortConfig.key === "year" ||
-        sortConfig.key === "enrollmentYear" ||
-        sortConfig.key === "finalGrade"
-      ) {
+      // Sort by birthdate
+      if (sortConfig.key === "dateOfBirth") {
+        aKey = aKey ? new Date(aKey).getTime() : 0;
+        bKey = bKey ? new Date(bKey).getTime() : 0;
+      }
+
+      // Numeric-sort for year and finalGrade
+      if (sortConfig.key === "year" || sortConfig.key === "finalGrade") {
         // When sorting, treat year === 0 or "K" as 0 so Kindergarten comes first
         const parseVal = (v) => (v === "K" || v === 0 ? 0 : Number(v));
 
@@ -162,10 +164,25 @@ export default function StudentDirectory() {
 
   // Sorting handler
   function handleSort(key) {
-    setSortConfig((prev) => ({
-      key,
-      direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
-    }));
+    setSortConfig((prev) => {
+      if (key !== "dateOfBirth") {
+        return {
+          key,
+          direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
+        };
+      }
+
+      // Sort by dateOfBirth or birthdayUpcoming
+      if (prev.key !== "dateOfBirth") {
+        return { key: "dateOfBirth", direction: "asc" };
+      }
+      if (prev.direction === "asc") {
+        return { key: "dateOfBirth", direction: "desc" };
+      }
+
+      // If already sorted by dateOfBirth, sort by birthdayUpcoming
+      return { key: "birthdayUpcoming", direction: "asc" };
+    });
   }
 
   return (
@@ -187,7 +204,7 @@ export default function StudentDirectory() {
           />
         </Box>
 
-        <NewStudent students={studentsData} setStudents={setStudentsData} />
+        <NewStudent setStudents={setStudentsData} />
 
         <StudentTable
           rows={paginatedStudents}

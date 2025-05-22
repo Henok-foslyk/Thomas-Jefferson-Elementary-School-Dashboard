@@ -104,7 +104,7 @@ export default function TeacherDirectory() {
           }}
         />
 
-        <NewTeacher teachers={teachersData} setTeachers={setTeachersData} />
+        <NewTeacher setTeachers={setTeachersData} />
 
         <TeacherTable
           rows={paginatedTeachers}
