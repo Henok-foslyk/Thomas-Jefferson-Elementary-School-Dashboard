@@ -17,7 +17,7 @@ import {
 } from "@mui/icons-material";
 import React, { useState } from "react";
 
-import EnrolledClassesTable from "./EnrolledClassesTable.jsx";
+import ExpandableStudentRow from "./ExpandableStudentRow";
 
 export default function StudentTable({ rows, sortConfig, onSort, onEdit, onDelete }) {
   const [openRow, setOpenRow] = useState({});
@@ -118,29 +118,14 @@ export default function StudentTable({ rows, sortConfig, onSort, onEdit, onDelet
         {/* TableBody is where the actual data rows are rendered */}
         <TableBody>
           {rows.map((row) => (
-            <React.Fragment key={row.id}>
-              {/* Row with expandable content */}
-              <TableRow hover>
-                <TableCell>
-                  <IconButton size="small" onClick={() => toggleRow(row.id)}>
-                    {openRow === row.id ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                  </IconButton>
-                </TableCell>
-
-                {columns.map((col) => (
-                  <TableCell key={col.key} sx={col.cellSx}>
-                    {col.render ? col.render(row[col.key], row) : row[col.key]}
-                  </TableCell>
-                ))}
-              </TableRow>
-
-              <TableRow>
-                <TableCell colSpan={columns.length + 1} sx={{ p: 0 }}>
-                  {/* Enrolled classes table */}
-                  <EnrolledClassesTable open={openRow === row.id} classes={row.classes} />
-                </TableCell>
-              </TableRow>
-            </React.Fragment>
+            // Each row is rendered here
+            <ExpandableStudentRow
+              key={row.id}
+              row={row}
+              columns={columns}
+              isOpen={openRow === row.id}
+              onToggle={toggleRow}
+            />
           ))}
         </TableBody>
       </Table>
