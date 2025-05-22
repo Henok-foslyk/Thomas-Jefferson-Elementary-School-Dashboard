@@ -20,7 +20,7 @@ export default function NewStudentDirectory({ setStudents }) {
     last: "",
     year: "",
     email: "",
-    enrollmentYear: "",
+    dateOfBirth: "",
   });
 
   const handleChange = (e) => {
@@ -39,7 +39,7 @@ export default function NewStudentDirectory({ setStudents }) {
       last: newStudent.last,
       year: Number(newStudent.year),
       email: newStudent.email,
-      enrollmentYear: String(newStudent.enrollmentYear),
+      dateOfBirth: newStudent.dateOfBirth,
       finalGrade: null,
     });
 
@@ -50,7 +50,7 @@ export default function NewStudentDirectory({ setStudents }) {
     ]);
 
     // Reset form & close dialog
-    setNewStudent({ first: "", last: "", year: "", email: "", enrollmentYear: "" });
+    setNewStudent({ first: "", last: "", year: "", email: "", dateOfBirth: "" });
     handleClose();
   };
 
