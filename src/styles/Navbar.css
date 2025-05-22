@@ -6,7 +6,11 @@ body {
 }
 
 .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 3;
   background-color: #34547c;
+  font-weight: 600;
   padding: 20px 20px;
   display: flex;
   align-items: center;
@@ -23,7 +27,18 @@ body {
   transform-origin: left center;
 }
 
+.navbar-title {
+  color: #ffffff;
+  font-size: 1.3rem;
+  white-space: nowrap;
+  position: relative;
+  top: -2px;
+}
+
 .navbar-links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   list-style: none;
   display: flex;
   gap: 15px;
@@ -44,4 +59,6 @@ body {
 
 .nav-item.active a {
   background-color: #74c0ff;
+  color: #000;
+  font-weight: 700;
 }

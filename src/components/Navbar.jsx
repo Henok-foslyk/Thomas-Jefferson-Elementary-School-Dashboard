@@ -19,6 +19,11 @@ function Navbar() {
       <Link to="/" className="logo-link">
         <img src={logo} alt="Logo" className="navbar-logo" />
       </Link>
+
+      <Link to="/">
+        <span className="navbar-title">Thomas Jefferson Elementary School</span>
+      </Link>
+
       <ul className="navbar-links">
         {links.map((link) => (
           <li key={link.path} className={`nav-item ${currentPath === link.path ? "active" : ""}`}>
