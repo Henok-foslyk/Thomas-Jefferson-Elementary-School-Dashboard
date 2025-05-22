@@ -1,0 +1,62 @@
+/*************************************************************************
+ * Home.jsx styles
+ * This section contains the CSS styles for the Home.jsx route.
+ *************************************************************************/
+
+.home-container {
+  margin-top: 2rem;
+  padding-left: 0 !important;
+}
+
+.home-header {
+  margin-bottom: 2rem;
+}
+
+.home-summary {
+  margin-bottom: 2rem;
+}
+
+.home-card {
+  padding: 1rem;
+  text-align: center;
+}
+
+.home-button-grid {
+  margin-top: 3rem;
+}
+
+/*************************************************************************
+ * UpcomingEvents.jsx styles
+ * This section contains the CSS styles for the UpcomingEvents.jsx component.
+ *************************************************************************/
+
+.upcoming-container {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.upcoming-item {
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.upcoming-date {
+  background-color: #ddd;
+  border-radius: 10px;
+  padding: 0.5rem;
+  text-align: center;
+  margin-right: 1rem;
+  width: 4rem;
+}
+
+.upcoming-content .MuiTypography-body1 {
+  font-weight: bold;
+}
+
+.upcoming-item.blank {
+  background: transparent;
+  min-height: 100px;
+}
