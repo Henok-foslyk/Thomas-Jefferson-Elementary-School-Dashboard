@@ -13,6 +13,7 @@ export default function StudentDirectory() {
   const [studentsData, setStudentsData] = useState([]);
   const [assignmentsData, setAssignmentsData] = useState([]);
   const [classesData, setClassesData] = useState([]);
+  const [teachersData, setTeachersData] = useState([]);
 
   const [sortConfig, setSortConfig] = useState({ key: "last", direction: "asc" });
 
@@ -26,39 +27,30 @@ export default function StudentDirectory() {
   // Fetch students data from database
   useEffect(() => {
     async function fetchData() {
-      // Fetch students data from database
-      const studentSnapshot = await getDocs(collection(db, "students"));
-      const students = studentSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setStudentsData(students);
+      // Fetch students, assignments, classes, and teachers data from database
+      const [studSnap, assignSnap, classSnap, teachSnap] = await Promise.all([
+        getDocs(collection(db, "students")),
+        getDocs(collection(db, "assignments")),
+        getDocs(collection(db, "classes")),
+        getDocs(collection(db, "teachers")),
+      ]);
 
-      // Fetch assignments data from database
-      const assignmentsSnapshot = await getDocs(collection(db, "assignments"));
-      const assignments = assignmentsSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setAssignmentsData(assignments);
-
-      const classesSnapshot = await getDocs(collection(db, "classes"));
-      const classes = classesSnapshot.docs.map((d) => ({
-        id: d.id,
-        ...d.data(),
-      }));
-      setClassesData(classes);
+      setStudentsData(studSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      setAssignmentsData(assignSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      setClassesData(classSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      setTeachersData(teachSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     }
     fetchData();
   }, []);
 
+  // Memoized students with final grades
   const gradedStudents = useMemo(() => {
     return studentsData.map((student) => {
       // Grab all that student's assignments
-      const theirs = assignmentsData.filter((a) => a.student_id === student.id);
+      const studentAssign = assignmentsData.filter((a) => a.student_id === student.id);
 
       // Group by class_id
-      const byClass = theirs.reduce((acc, a) => {
+      const byClass = studentAssign.reduce((acc, a) => {
         const cls = a.class_id;
         acc[cls] = acc[cls] || [];
         acc[cls].push(a.grade);
@@ -66,20 +58,33 @@ export default function StudentDirectory() {
       }, {});
 
       // Compute each class's avg
-      const classAverages = Object.values(byClass).map((grades) => {
-        return grades.reduce((sum, g) => sum + g, 0) / grades.length;
-      });
+      const classAverages = Object.entries(byClass).map(([cid, grades]) => ({
+        classId: cid,
+        avg: grades.reduce((s, g) => s + g, 0) / grades.length,
+      }));
 
       // Calculate finalGrade
       const finalGrade =
         classAverages.length > 0
-          ? classAverages.reduce((s, a) => s + a, 0) / classAverages.length
+          ? classAverages.reduce((s, c) => s + c.avg, 0) / classAverages.length
           : null;
 
       // Find the classes this student is in
       const studentClasses = classesData
         .filter((c) => Array.isArray(c.student_ids) && c.student_ids.includes(student.id))
-        .map((c) => c.name);
+        .map((c) => {
+          const classAvg = classAverages.find((x) => x.classId === c.id);
+          const teacher = teachersData.find((t) => t.id === c.teacher_id);
+          const teacherFullName = teacher ? `${teacher.last}, ${teacher.first}` : "—";
+
+          return {
+            className: c.name,
+            teacherFullName,
+            avgGrade: classAvg?.avg ?? null,
+          };
+        })
+        // Sort by teacher’s last name
+        .sort((a, b) => a.teacherFullName.localeCompare(b.teacherFullName));
 
       return {
         ...student,
@@ -87,7 +92,7 @@ export default function StudentDirectory() {
         classes: studentClasses,
       };
     });
-  }, [studentsData, assignmentsData, classesData]);
+  }, [studentsData, assignmentsData, classesData, teachersData]);
 
   // Update finalGrade in database when it changes
   useEffect(() => {

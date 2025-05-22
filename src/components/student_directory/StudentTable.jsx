@@ -77,8 +77,8 @@ export default function StudentTable({ rows, sortConfig, onSort, onEdit, onDelet
       key: "enrollmentYear",
       label: "Enrolled",
       sortable: true,
-      headerSx: { px: 7 },
-      cellSx: { px: 8 },
+      headerSx: { px: 6 },
+      cellSx: { px: 7 },
     },
     {
       key: "actions",
@@ -145,17 +145,47 @@ export default function StudentTable({ rows, sortConfig, onSort, onEdit, onDelet
               <TableRow>
                 <TableCell colSpan={columns.length + 1} sx={{ p: 0 }}>
                   <Collapse in={openRow === row.id} unmountOnExit>
-                    <Box margin={2}>
-                      <Typography variant="subtitle2">Enrolled Classes:</Typography>
-                      {row.classes.length > 0 ? (
-                        row.classes.map((cls) => (
-                          <Typography key={cls} variant="body2">
-                            • {cls}
-                          </Typography>
-                        ))
-                      ) : (
-                        <Typography variant="body2">None assigned yet</Typography>
-                      )}
+                    <Box
+                      margin={2}
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Typography variant="h6">Enrolled Classes:</Typography>
+                      <Table size="small" sx={{ maxWidth: 450 }}>
+                        <TableHead sx={{ backgroundColor: "#ddd" }}>
+                          <TableRow>
+                            <TableCell sx={{ fontWeight: "bold", width: 150 }}>Class</TableCell>
+                            <TableCell sx={{ fontWeight: "bold" }}>Teacher</TableCell>
+                            <TableCell align="right" sx={{ fontWeight: "bold" }}>
+                              Avg Grade
+                            </TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {row.classes.length > 0 ? (
+                            row.classes.map(({ className, teacherFullName, avgGrade }) => (
+                              <TableRow key={className}>
+                                <TableCell>{className}</TableCell>
+                                <TableCell>{teacherFullName}</TableCell>
+                                <TableCell align="right">
+                                  {avgGrade != null ? avgGrade.toFixed(1) : "—"}
+                                </TableCell>
+                              </TableRow>
+                            ))
+                          ) : (
+                            // student has no classes — render one “blank” row
+                            <TableRow>
+                              <TableCell>—</TableCell>
+                              <TableCell>—</TableCell>
+                              <TableCell align="right">—</TableCell>
+                            </TableRow>
+                          )}
+                        </TableBody>
+                      </Table>
                     </Box>
                   </Collapse>
                 </TableCell>
