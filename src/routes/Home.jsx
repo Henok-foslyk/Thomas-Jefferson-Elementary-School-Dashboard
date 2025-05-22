@@ -65,21 +65,21 @@ export default function Home() {
       <Grid container spacing={2} className="home-button-grid">
         <Grid>
           <Link to="/students">
-            <Button variant="outlined" fullWidth>
+            <Button variant="contained" fullWidth>
               Manage Students
             </Button>
           </Link>
         </Grid>
         <Grid>
           <Link to="/teachers">
-            <Button variant="outlined" fullWidth>
+            <Button variant="contained" fullWidth>
               Manage Teachers
             </Button>
           </Link>
         </Grid>
         <Grid>
           <Link to="/classes">
-            <Button variant="outlined" fullWidth>
+            <Button variant="contained" fullWidth>
               View All Classes
             </Button>
           </Link>

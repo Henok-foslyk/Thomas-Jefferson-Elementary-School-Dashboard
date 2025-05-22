@@ -81,7 +81,7 @@ export default function UpcomingEvents() {
 
       <Box mt={2} display="flex" justifyContent="center">
         <Link to="/calendar">
-          <Button variant="outlined">View All Events</Button>
+          <Button variant="contained">View All Events</Button>
         </Link>
       </Box>
     </Box>

@@ -23,3 +23,14 @@ h5 {
   align-items: center;
   justify-content: center;
 }
+
+.MuiButton-containedPrimary {
+  background-color: #3c557c !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* And on hover */
+.MuiButton-containedPrimary:hover {
+  background-color: #1c344e !important;
+}
