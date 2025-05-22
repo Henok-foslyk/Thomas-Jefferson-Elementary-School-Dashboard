@@ -2,15 +2,15 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import App from './App'
-import ClassesDashboard from './routes/ClassesDashboard';
+import App from "./App";
+import ClassesDashboard from "./routes/ClassesDashboard";
 import Calendar from "./routes/CalendarDashboard";
 import Students from "./routes/StudentDirectory";
 import Teachers from "./routes/TeacherDirectory";
-import Class from './routes/Class'
-import Grade from './routes/Grade'
-import EditGrade from './routes/EditGrade'
-import EditClass from './routes/EditClass'
+import Class from "./routes/Class";
+import Grade from "./routes/Grade";
+import EditGrade from "./routes/EditGrade";
+import EditClass from "./routes/EditClass";
 
 import ErrorFallBack from "./components/ErrorFallBack";
 
