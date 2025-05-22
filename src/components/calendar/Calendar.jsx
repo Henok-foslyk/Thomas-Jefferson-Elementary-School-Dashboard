@@ -3,7 +3,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { Container, Grid } from '@mui/material';
 
-import "../styles/calendar.css";
+import "../../styles/Calendar.css";
 
 export default function Calendar() {
     return (

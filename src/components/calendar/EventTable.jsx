@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { Paper } from "@mui/material";
 
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../../firebase";
 
-import "../styles/calendar.css"
+import "../../styles/Calendar.css";
 
 const columns = [
     { field: 'date', headerName: 'Date', width: 130 },

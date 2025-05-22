@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Button, Container } from "@mui/material";  
 import { collection, addDoc } from "firebase/firestore";
 
-import { db } from "../firebase";
+import { db } from "../../firebase";
 
-import "../styles/calendar.css";
+import "../../styles/Calendar.css";
 
 export default function NewEvent() {
     const [date, setDate] = useState('');

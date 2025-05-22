@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 import { useState } from "react";   
 
-import "../styles/calendar.css"
+import "../../styles/Calendar.css";
 
 export default function SearchEvent() {
     const [search, setSearch] = useState('');

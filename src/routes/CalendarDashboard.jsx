@@ -1,10 +1,10 @@
 import React from 'react'
 
 import Navbar from '../components/Navbar'
-import Calendar from '../components/Calendar';
-import EventTable from '../components/EventTable';
-import SearchEvent from '../components/SearchEvent';
-import NewEvent from '../components/NewEvent';
+import Calendar from '../components/calendar/Calendar';
+import EventTable from '../components/calendar/EventTable';
+import SearchEvent from '../components/calendar/SearchEvent';
+import NewEvent from '../components/calendar/NewEvent';
 import { Grid, Paper, Box, styled } from '@mui/material';
 
 const Item = styled(Paper)(({ theme }) => ({
