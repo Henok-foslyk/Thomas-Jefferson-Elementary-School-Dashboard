@@ -8,6 +8,7 @@ import Navbar from "../components/Navbar.jsx";
 import SearchBar from "../components/SearchBar";
 import StudentTable from "../components/student_directory/StudentTable.jsx";
 import NewStudentDirectory from "../components/student_directory/NewStudentDirectory.jsx";
+import EditStudent from "../components/student_directory/EditStudent.jsx";
 import DeleteStudentDirectory from "../components/student_directory/DeleteStudentDirectory.jsx";
 
 export default function StudentDirectory() {
@@ -21,6 +22,7 @@ export default function StudentDirectory() {
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
 
+  const [toEdit, setEditStudent] = useState(null);
   const [toDelete, setToDelete] = useState(null);
 
   const rowsPerPage = 20;
@@ -191,7 +193,14 @@ export default function StudentDirectory() {
           rows={paginatedStudents}
           sortConfig={sortConfig}
           onSort={handleSort}
+          onEdit={(student) => setEditStudent(student)}
           onDelete={(student) => setToDelete(student)}
+        />
+
+        <EditStudent
+          student={toEdit}
+          onClose={() => setEditStudent(null)}
+          setStudents={setStudentsData}
         />
 
         <DeleteStudentDirectory
