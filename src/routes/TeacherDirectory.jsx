@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar.jsx";
 import SearchBar from "../components/SearchBar.jsx";
 import TeacherTable from "../components/teacher_directory/TeacherTable.jsx";
 import NewTeacher from "../components/teacher_directory/NewTeacher.jsx";
+import EditTeacher from "../components/teacher_directory/EditTeacher.jsx";
 import DeleteTeacher from "../components/teacher_directory/DeleteTeacher.jsx";
 
 export default function TeacherDirectory() {
@@ -18,6 +19,7 @@ export default function TeacherDirectory() {
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
 
+  const [toEdit, setEditTeacher] = useState(null);
   const [toDelete, setToDelete] = useState(null);
 
   const rowsPerPage = 20;
@@ -108,8 +110,15 @@ export default function TeacherDirectory() {
           rows={paginatedTeachers}
           sortConfig={sortConfig}
           onSort={handleSort}
+          onEdit={(teacher) => setEditTeacher(teacher)}
           onDelete={(teacher) => setToDelete(teacher)}
           classMap={classMap}
+        />
+
+        <EditTeacher
+          teacher={toEdit}
+          onClose={() => setEditTeacher(null)}
+          setTeachers={setTeachersData}
         />
 
         <DeleteTeacher

@@ -6,6 +6,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  InputAdornment,
   TextField,
 } from "@mui/material";
 import { collection, addDoc } from "firebase/firestore";
@@ -94,6 +95,26 @@ export default function NewStudentDirectory({ setStudents }) {
             onChange={handleChange}
             fullWidth
             margin="dense"
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <Button
+                      size="small"
+                      onClick={() => {
+                        const first = (newStudent.first || "").trim().toLowerCase();
+                        const last = (newStudent.last || "").trim().toLowerCase();
+                        if (first && last) {
+                          setNewStudent((p) => ({ ...p, email: `${first}.${last}@tomjeff.edu` }));
+                        }
+                      }}
+                    >
+                      Auto
+                    </Button>
+                  </InputAdornment>
+                ),
+              },
+            }}
           />
           <TextField
             name="enrollmentYear"
