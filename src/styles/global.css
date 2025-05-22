@@ -1,0 +1,25 @@
+/* page background */
+body {
+  background-color: #bdbdbd7a;
+  margin: 0;
+  padding: 0;
+}
+
+h5 {
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  margin-top: 2rem;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.MuiTypography-h5 {
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  margin-top: 2rem;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

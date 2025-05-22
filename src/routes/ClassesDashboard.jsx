@@ -7,6 +7,7 @@ import { db } from "../firebase";
 
 import Navbar from '../components/Navbar'
 import '../styles/ClassesDashboard.css'
+import "../styles/global.css";
 
 function ClassesDashboard() {
     const [classes, setClasses] = useState([]);
@@ -87,7 +88,7 @@ function ClassesDashboard() {
     return (
         <div>
             <Navbar/>
-            <h1 className="classesCenter">Classes</h1>
+            <h5>Classes</h5>
             <div className="classesHeader">
                 <p className="classesCenter">Class</p>
                 <p className="classesCenter">Teacher</p>

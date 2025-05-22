@@ -38,10 +38,12 @@ export default function Home() {
   return (
     <Container maxWidth="lg" className="home-container" disableGutters>
       <Box className="home-header">
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h5" gutterBottom>
           Welcome to the Thomas Jefferson Elementary Dashboard
         </Typography>
-        <Typography variant="subtitle1">Bringing our school into the digital age.</Typography>
+        <Typography variant="subtitle1" align="center" gutterBottom>
+          Bringing our school into the digital age...
+        </Typography>
       </Box>
 
       <Grid container spacing={2} className="home-summary">

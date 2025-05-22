@@ -88,7 +88,7 @@ export default function NewTeacher({ setTeachers }) {
   };
 
   return (
-    <Box mb={2} display="flex" justifyContent="flex-end">
+    <Box mb={4} display="flex" justifyContent="flex-end">
       <Button variant="contained" color="primary" onClick={handleOpen}>
         Add Teacher
       </Button>

@@ -75,7 +75,7 @@ export default function TeacherTable({ rows, sortConfig, onSort, classMap, onEdi
     <TableContainer component={Paper}>
       <Table sx={{ tableLayout: "fixed", width: "100%" }}>
         {/* TableHead is where the column headers are defined */}
-        <TableHead sx={{ backgroundColor: "#ddd" }}>
+        <TableHead sx={{ backgroundColor: "#8a9cb3" }}>
           <TableRow>
             {columns.map((col) => (
               <TableCell key={col.key} sx={col.headerSx}>
