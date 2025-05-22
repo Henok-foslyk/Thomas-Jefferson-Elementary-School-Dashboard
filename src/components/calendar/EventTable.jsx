@@ -78,7 +78,10 @@ export default function EventTable() {
                     <DataGrid
                         rows={rows}
                         columns={columns}
-                        initialState={{ pagination: { paginationModel } }}
+                        initialState={{ 
+                            pagination: { paginationModel },
+                                sorting: { sortModel: [{ field: 'date', sort: 'desc'}] } 
+                        }}
                         pageSizeOption={[5, 10]}
                         checkboxSelection={false}
                         loading={isLoading}
