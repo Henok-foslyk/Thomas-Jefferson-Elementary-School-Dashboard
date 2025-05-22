@@ -16,19 +16,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 export default function TeacherTable({ rows, sortConfig, onSort, classMap, onEdit, onDelete }) {
   // Column configuration for the table
   const columns = [
-    // {
-    //   key: "id",
-    //   label: "ID",
-    //   sortable: true,
-    //   headerSx: { px: 3, width: 90 },
-    //   cellSx: { px: 3 },
-    // },
     {
       key: "first",
       label: "First",
       sortable: true,
-      headerSx: { px: 5, width: 170 },
-      cellSx: { px: 5 },
+      headerSx: { px: 4, width: 150 },
+      cellSx: { px: 4 },
     },
     {
       key: "last",
@@ -41,16 +34,24 @@ export default function TeacherTable({ rows, sortConfig, onSort, classMap, onEdi
       key: "class",
       label: "Class",
       sortable: true,
-      headerSx: { px: 2, width: 170 },
-      cellSx: { px: 2 },
+      headerSx: { px: 1, width: 150 },
+      cellSx: { px: 1 },
       render: (v) => classMap?.[v] || "—",
     },
     {
       key: "email",
       label: "Email",
       sortable: false,
-      headerSx: { px: 2, width: 250 },
+      headerSx: { px: 2, width: 230 },
       cellSx: { px: 2 },
+    },
+    {
+      key: "phone",
+      label: "Phone",
+      sortable: false,
+      headerSx: { px: 2, width: 100 },
+      cellSx: { px: 2 },
+      render: (v) => v || "—",
     },
     {
       key: "actions",

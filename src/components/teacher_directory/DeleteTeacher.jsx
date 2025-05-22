@@ -9,7 +9,7 @@ import {
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase";
 
-export default function DeleteTeacherDirectory({ teacher, open, onClose, onDeleted }) {
+export default function DeleteTeacher({ teacher, open, onClose, onDeleted }) {
   if (!teacher) return null;
 
   const handleConfirm = async () => {
@@ -40,6 +40,7 @@ export default function DeleteTeacherDirectory({ teacher, open, onClose, onDelet
           }{" "}
           from the teacher directory?
         </Typography>
+        <Typography sx={{ mt: 2 }}>(and remove them from their class)</Typography>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>

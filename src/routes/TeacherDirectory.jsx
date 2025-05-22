@@ -12,6 +12,7 @@ import DeleteTeacher from "../components/teacher_directory/DeleteTeacher.jsx";
 export default function TeacherDirectory() {
   const [teachersData, setTeachersData] = useState([]);
   const [classMap, setClassMap] = useState({});
+
   const [sortConfig, setSortConfig] = useState({ key: "last", direction: "asc" });
 
   const [searchQuery, setSearchQuery] = useState("");
