@@ -57,7 +57,7 @@ export default function StudentTable({ rows, sortConfig, onSort, onEdit, onDelet
       label: "Date of Birth",
       sortable: true,
       headerSx: { px: 1 },
-      cellSx: { px: 2 },
+      cellSx: { px: 1 },
       render: (v) =>
         v
           ? new Date(v).toLocaleDateString("en-US", {
