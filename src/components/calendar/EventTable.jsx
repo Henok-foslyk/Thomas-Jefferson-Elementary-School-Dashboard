@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { Paper } from "@mui/material";
 
 import EventEditDialog from "./EventEditDialog";
+import EditCalendarIcon from '@mui/icons-material/EditCalendar';
+
 
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -105,10 +107,10 @@ export default function EventTable() {
                     /><br></br>
                     {selectedId && (
                         <Button 
-                            variant="outlined"
+                            variant="contained"
                             onClick={() => handleEdit()}
                         >
-                            Edit
+                           <EditCalendarIcon fontSize="small" sx={{ mr: 1, mb: 0.3 }}/> Edit
                         </Button>
                     )}
                     {isEditing && (
