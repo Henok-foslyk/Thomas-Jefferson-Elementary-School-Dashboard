@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import {
+  Button,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
+  InputAdornment,
   TextField,
-  Button,
 } from "@mui/material";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import "../../styles/StudentDirectory.css";
 
 export default function EditStudent({ student, onClose, setStudents }) {
-  const [form, setForm] = useState({
+  const [editStudent, setEditStudent] = useState({
     first: "",
     last: "",
     year: "",
@@ -22,7 +23,7 @@ export default function EditStudent({ student, onClose, setStudents }) {
   // Set initial form values when student prop changes
   useEffect(() => {
     if (student) {
-      setForm({
+      setEditStudent({
         first: student.first ?? "",
         last: student.last ?? "",
         year: student.year ?? "",
@@ -34,25 +35,26 @@ export default function EditStudent({ student, onClose, setStudents }) {
   // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    setEditStudent((prev) => ({ ...prev, [name]: value }));
   };
 
   // Handle save button click
   async function handleSave() {
     if (!student) return;
 
+    // Validate inputs
     const updates = {};
-    if (form.first.trim() !== "" && form.first !== student.first) {
-      updates.first = form.first;
+    if (editStudent.first.trim() !== "" && editStudent.first !== student.first) {
+      updates.first = editStudent.first;
     }
-    if (form.last.trim() !== "" && form.last !== student.last) {
-      updates.last = form.last;
+    if (editStudent.last.trim() !== "" && editStudent.last !== student.last) {
+      updates.last = editStudent.last;
     }
-    if (form.year !== "" && Number(form.year) !== student.year) {
-      updates.year = Number(form.year);
+    if (editStudent.year !== "" && Number(editStudent.year) !== student.year) {
+      updates.year = Number(editStudent.year);
     }
-    if (form.email.trim() !== "" && form.email !== student.email) {
-      updates.email = form.email;
+    if (editStudent.email.trim() !== "" && editStudent.email !== student.email) {
+      updates.email = editStudent.email;
     }
 
     // If nothing changed, just close
@@ -83,7 +85,7 @@ export default function EditStudent({ student, onClose, setStudents }) {
         <TextField
           name="first"
           label="First Name"
-          value={form.first}
+          value={editStudent.first}
           onChange={handleChange}
           fullWidth
           margin="dense"
@@ -91,7 +93,7 @@ export default function EditStudent({ student, onClose, setStudents }) {
         <TextField
           name="last"
           label="Last Name"
-          value={form.last}
+          value={editStudent.last}
           onChange={handleChange}
           fullWidth
           margin="dense"
@@ -100,7 +102,7 @@ export default function EditStudent({ student, onClose, setStudents }) {
           name="year"
           label="Year (0 for K)"
           type="number"
-          value={form.year}
+          value={editStudent.year}
           onChange={handleChange}
           fullWidth
           margin="dense"
@@ -108,10 +110,30 @@ export default function EditStudent({ student, onClose, setStudents }) {
         <TextField
           name="email"
           label="Email"
-          value={form.email}
+          value={editStudent.email}
           onChange={handleChange}
           fullWidth
           margin="dense"
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      const first = (editStudent.first || "").trim().toLowerCase();
+                      const last = (editStudent.last || "").trim().toLowerCase();
+                      if (first && last) {
+                        setEditStudent((p) => ({ ...p, email: `${first}.${last}@tomjeff.edu` }));
+                      }
+                    }}
+                  >
+                    Auto
+                  </Button>
+                </InputAdornment>
+              ),
+            },
+          }}
         />
       </DialogContent>
 
