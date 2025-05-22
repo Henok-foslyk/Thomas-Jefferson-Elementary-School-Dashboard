@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Typography, Grid, Paper, Button, Box } from "@mui/material";
 import { collection, getDocs } from "firebase/firestore";
+import { Link } from "react-router-dom";
 import { db } from "../firebase";
 
 import UpcomingEvents from "../components/UpcomingEvents.jsx";
@@ -61,19 +62,25 @@ export default function Home() {
 
       <Grid container spacing={2} className="home-button-grid">
         <Grid>
-          <Button variant="outlined" fullWidth href="/students">
-            Manage Students
-          </Button>
+          <Link to="/students">
+            <Button variant="outlined" fullWidth>
+              Manage Students
+            </Button>
+          </Link>
         </Grid>
         <Grid>
-          <Button variant="outlined" fullWidth href="/teachers">
-            Manage Teachers
-          </Button>
+          <Link to="/teachers">
+            <Button variant="outlined" fullWidth>
+              Manage Teachers
+            </Button>
+          </Link>
         </Grid>
         <Grid>
-          <Button variant="outlined" fullWidth href="/classes">
-            View All Classes
-          </Button>
+          <Link to="/classes">
+            <Button variant="outlined" fullWidth>
+              View All Classes
+            </Button>
+          </Link>
         </Grid>
       </Grid>
 

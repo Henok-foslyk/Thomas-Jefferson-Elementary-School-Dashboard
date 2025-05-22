@@ -3,6 +3,7 @@ import { Grid, Box, Typography, Button } from "@mui/material";
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "../firebase";
 import "../styles/Home.css";
+import { Link } from "react-router-dom";
 
 export default function UpcomingEvents() {
   const [events, setEvents] = useState([]);
@@ -79,9 +80,9 @@ export default function UpcomingEvents() {
       </Grid>
 
       <Box mt={2} display="flex" justifyContent="center">
-        <Button variant="outlined" href="/calendar">
-          View All Events
-        </Button>
+        <Link to="/calendar">
+          <Button variant="outlined">View All Events</Button>
+        </Link>
       </Box>
     </Box>
   );
