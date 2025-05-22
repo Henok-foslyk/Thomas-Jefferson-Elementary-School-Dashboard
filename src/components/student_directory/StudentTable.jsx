@@ -9,13 +9,8 @@ import {
   TableSortLabel,
   IconButton,
 } from "@mui/material";
-import {
-  KeyboardArrowDown as ExpandMoreIcon,
-  KeyboardArrowUp as ExpandLessIcon,
-  Edit as EditIcon,
-  Delete as DeleteIcon,
-} from "@mui/icons-material";
-import React, { useState } from "react";
+import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
+import { useState } from "react";
 
 import ExpandableStudentRow from "./ExpandableStudentRow";
 
