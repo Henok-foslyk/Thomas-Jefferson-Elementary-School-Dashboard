@@ -6,8 +6,8 @@ import { collection, getDocs } from "firebase/firestore";
 import Navbar from "../components/Navbar.jsx";
 import SearchBar from "../components/SearchBar.jsx";
 import TeacherTable from "../components/teacher_directory/TeacherTable.jsx";
-import NewTeacherDirectory from "../components/teacher_directory/NewTeacherDirectory.jsx";
-import DeleteTeacherDirectory from "../components/teacher_directory/DeleteTeacherDirectory.jsx";
+import NewTeacher from "../components/teacher_directory/NewTeacher.jsx";
+import DeleteTeacher from "../components/teacher_directory/DeleteTeacher.jsx";
 
 export default function TeacherDirectory() {
   const [teachersData, setTeachersData] = useState([]);
@@ -101,7 +101,7 @@ export default function TeacherDirectory() {
           }}
         />
 
-        <NewTeacherDirectory teachers={teachersData} setTeachers={setTeachersData} />
+        <NewTeacher teachers={teachersData} setTeachers={setTeachersData} />
 
         <TeacherTable
           rows={paginatedTeachers}
@@ -111,7 +111,7 @@ export default function TeacherDirectory() {
           classMap={classMap}
         />
 
-        <DeleteTeacherDirectory
+        <DeleteTeacher
           teacher={toDelete}
           open={Boolean(toDelete)}
           onClose={() => setToDelete(null)}
