@@ -23,6 +23,11 @@ export default function DeleteStudentDirectory({ student, open, onClose, onDelet
 
   const handleConfirm = async () => {
     try {
+      const assignQ = query(collection(db, "assignments"), where("student_id", "==", student.id));
+      const assignSnap = await getDocs(assignQ);
+      const deletes = assignSnap.docs.map((doc) => deleteDoc(doc.ref));
+      await Promise.all(deletes);
+
       // Remove from database
       await deleteDoc(doc(db, "students", student.id));
 
