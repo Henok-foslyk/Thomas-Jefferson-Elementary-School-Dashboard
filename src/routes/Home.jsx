@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { db } from "../firebase";
 
 import UpcomingEvents from "../components/UpcomingEvents.jsx";
+import SchoolIcon from "@mui/icons-material/School";
 import "../styles/Home.css";
 
 export default function Home() {
@@ -39,6 +40,7 @@ export default function Home() {
     <Container maxWidth="lg" className="home-container" disableGutters>
       <Box className="home-header">
         <Typography variant="h5" gutterBottom>
+          <SchoolIcon fontSize="large" sx={{ mr: 1, mb: 0.3 }} />
           Welcome to the Thomas Jefferson Elementary Dashboard
         </Typography>
         <Typography variant="subtitle1" align="center" gutterBottom>

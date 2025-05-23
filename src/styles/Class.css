@@ -1,76 +1,50 @@
 .classCenter {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .classHeader {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    align-items: center;
-    padding: 10px;
-    max-width: 80%;
-    background-color: #8A9CB3;
-    font-weight: bold;
-    margin: 0 auto;
-    gap: 10%;
-    border-radius: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+  padding: 10px;
+  max-width: 80%;
+  background-color: #8a9cb3;
+  font-weight: bold;
+  margin: 0 auto;
+  gap: 10%;
+  border-radius: 20px;
 }
 
 .classRow {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    align-items: center;
-    padding: 10px;
-    max-width: 80%;
-    background-color: #F5F5F5;
-    margin: 0 auto;
-    gap: 10%;
-    margin-top: 10px;
-    border-radius: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+  padding: 10px;
+  max-width: 80%;
+  background-color: #f5f5f5;
+  margin: 0 auto;
+  gap: 10%;
+  margin-top: 10px;
+  border-radius: 20px;
 }
 
 .classInfo {
-    width: 80%;
-}
-
-.editButton {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
+  width: 80%;
 }
 
 .classTitleContainer {
-    position:relative;
-    align-items: center;
-    width: 80%;
-    text-align:center;
-}
-
-.backButton {
-    position:absolute;
-    left:0;
-    top:50%;
-    transform: translateY(-50%);
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
+  position: relative;
+  align-items: center;
+  width: 80%;
+  text-align: center;
 }
 
 .noTop {
-    margin-top: 0px;
+  margin-top: 0px;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }

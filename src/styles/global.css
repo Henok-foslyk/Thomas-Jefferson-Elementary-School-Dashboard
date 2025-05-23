@@ -28,6 +28,7 @@ h5 {
   background-color: #3c557c !important;
   color: #ffffff !important;
   font-weight: 600 !important;
+  border-radius: 8px !important;
 }
 
 /* And on hover */
