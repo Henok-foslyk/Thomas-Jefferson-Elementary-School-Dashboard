@@ -72,13 +72,13 @@ export default function TeacherTable({ rows, sortConfig, onSort, classMap, onEdi
     },
   ];
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ tableLayout: "fixed", width: "100%" }}>
+    <TableContainer component={Paper} sx={{ maxHeight: 800 }}>
+      <Table stickyHeader sx={{ tableLayout: "fixed", width: "100%" }}>
         {/* TableHead is where the column headers are defined */}
-        <TableHead sx={{ backgroundColor: "#8a9cb3" }}>
+        <TableHead>
           <TableRow>
             {columns.map((col) => (
-              <TableCell key={col.key} sx={col.headerSx}>
+              <TableCell key={col.key} sx={{ ...col.headerSx, backgroundColor: "#8a9cb3" }}>
                 {col.sortable ? (
                   <TableSortLabel
                     active={sortConfig.key === col.key}
