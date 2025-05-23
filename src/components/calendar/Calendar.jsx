@@ -5,8 +5,8 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, B
 import { useState } from 'react';
 import { collection, addDoc } from "firebase/firestore";
 import { db } from '../../firebase';
+import AddIcon from '@mui/icons-material/Add';
 import dayjs from 'dayjs';
-import ClearIcon from '@mui/icons-material/Clear';
 import "../../styles/Calendar.css";
 
 export default function Calendar({ dates = [], onDateSelect, onRefresh }) {
@@ -93,10 +93,10 @@ export default function Calendar({ dates = [], onDateSelect, onRefresh }) {
             {isSelected && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '16px' }}>
                     <Button 
-                        variant="outlined" 
+                        variant="contained" 
                         onClick={handleAddEventClick}
                     >
-                        Add Event
+                       <AddIcon fontSize="small" sx={{ mr: 1, mb: 0.3 }}/> Add Event
                     </Button>
                     <IconButton 
                         onClick={handleUnselectDate}

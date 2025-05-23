@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import EventEditDialog from "./EventEditDialog";
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import ClearIcon from '@mui/icons-material/Clear';
+import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import "../../styles/Calendar.css";
 
 const columns = [
@@ -114,19 +116,19 @@ export default function EventTable({ search, events, selectedDate, onRefresh }) 
             {selectedId && (
                 <>
                     <Button
-                        variant="outlined"
+                        variant="contained"
                         onClick={handleEdit}
                         sx={{ mt: 2 }}
                     >
-                        Edit
+                        <EditCalendarIcon fontSize="small" sx={{ mr: 1, mb: 0.3 }}/>Edit
                     </Button>
                     <Button
-                        variant="outlined"
+                        variant="contained"
                         color="error"
                         onClick={handleDelete}
                         sx={{ mt: 2 }}
                     >
-                        Delete
+                        <ClearIcon fontSize="small" sx={{ mr: 1, mb: 0.3 }}/>Delete
                     </Button>
                 </>
             )}
