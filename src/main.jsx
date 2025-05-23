@@ -7,7 +7,7 @@ import ClassesDashboard from "./routes/ClassesDashboard";
 import Calendar from "./routes/CalendarDashboard";
 import StudentDirectory from "./routes/StudentDirectory";
 import Teachers from "./routes/TeacherDirectory";
-import Grades from "./routes/Grades";
+// import Grades from "./routes/Grades";
 import EditClass from "./routes/EditClass";
 
 import ErrorFallBack from "./components/ErrorFallBack";
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
   { path: "/calendar", element: <Calendar />, errorElement: <ErrorFallBack /> },
   { path: "/students", element: <StudentDirectory />, errorElement: <ErrorFallBack /> },
   { path: "/teachers", element: <Teachers />, errorElement: <ErrorFallBack /> },
-  { path: "/grades", element: <Grades />, errorElement: <ErrorFallBack /> },
+  // { path: "/grades", element: <Grades />, errorElement: <ErrorFallBack /> },
   { path: "/editclass", element: <EditClass />, errorElement: <ErrorFallBack /> }
 ]);
 

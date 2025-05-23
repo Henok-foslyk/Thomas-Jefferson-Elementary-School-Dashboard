@@ -1,10 +1,14 @@
 import { TextField } from "@mui/material";
-import { useState } from "react";   
+import { useStat, useMemo, useEffect } from "react";   
 
 import "../../styles/Calendar.css";
 
 export default function SearchEvent({ search, setSearch }) {
-    
+    const handleSearch = (searchValue) => {
+        console.log(`Searching for ${searchValue}`);
+        setSearch(searchValue);
+    }
+
 
     return (
         <>
@@ -13,7 +17,7 @@ export default function SearchEvent({ search, setSearch }) {
                 label="Search events"
                 variant="outlined"
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => handleSearch(e.target.value)}
             />
         </>
     )

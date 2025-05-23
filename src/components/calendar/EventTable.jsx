@@ -6,7 +6,7 @@ import { Paper } from "@mui/material";
 
 import EventEditDialog from "./EventEditDialog";
 
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
 import { db } from "../../firebase";
 
 import "../../styles/Calendar.css"
@@ -69,15 +69,21 @@ export default function EventTable({ search }) {
     const handleEdit = () => {
         console.log("editing!");
         setIsEditing(!isEditing);
-        
     }
+
+    const filteredRows = search ? rows?.filter(row =>
+        row["event-name"]?.toLowerCase().includes(search.toLowerCase()) ||
+        row.location?.toLowerCase().includes(search.toLowerCase()) ||
+        row.date?.toLowerCase().includes(search.toLowerCase())
+    ) : rows;
+
 
     return (
         <>
             
                 <Paper sx={{ height: 400, width: '100%' }}>
                     <DataGrid
-                        rows={rows}
+                        rows={filteredRows || []}
                         columns={columns}
                         editMode="row"
                         initialState={{ 
