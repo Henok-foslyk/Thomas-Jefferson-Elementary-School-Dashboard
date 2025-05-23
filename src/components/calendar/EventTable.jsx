@@ -2,6 +2,8 @@ import { Button, Paper } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";  
 import EventEditDialog from "./EventEditDialog";
+import { doc, deleteDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 import "../../styles/Calendar.css";
 
 const columns = [
@@ -10,7 +12,7 @@ const columns = [
     { field: 'location', headerName: 'Location', width: 130 }
 ];
 
-export default function EventTable({ search, events, selectedDate }) {
+export default function EventTable({ search, events, selectedDate, onRefresh }) {
     const [filteredRows, setFilteredRows] = useState([]);
     const [selectedId, setSelectedId] = useState(null);
     const [selectedRow, setSelectedRow] = useState(null);
@@ -53,6 +55,18 @@ export default function EventTable({ search, events, selectedDate }) {
     const handleEdit = () => {
         setIsEditing(!isEditing);
     };
+
+    const handleDelete = async () => {
+  if (!selectedId) return;
+  try {
+    await deleteDoc(doc(db, "events", selectedId));
+    setSelectedId(null);
+    setSelectedRow(null);
+    if (onRefresh) onRefresh();
+  } catch (error) {
+    console.error("Failed to delete event:", error);
+  }
+};
 
     const handleRowClick = (params) => {
         if (selectedId === params.id) {
@@ -98,13 +112,23 @@ export default function EventTable({ search, events, selectedDate }) {
             </Paper>
            
             {selectedId && (
-                <Button
-                    variant="outlined"
-                    onClick={handleEdit}
-                    sx={{ mt: 2 }}
-                >
-                    Edit
-                </Button>
+                <>
+                    <Button
+                        variant="outlined"
+                        onClick={handleEdit}
+                        sx={{ mt: 2 }}
+                    >
+                        Edit
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        color="error"
+                        onClick={handleDelete}
+                        sx={{ mt: 2 }}
+                    >
+                        Delete
+                    </Button>
+                </>
             )}
            
             {isEditing && selectedRow && (
@@ -114,7 +138,11 @@ export default function EventTable({ search, events, selectedDate }) {
                     event={selectedRow["event-name"]}
                     location={selectedRow.location}
                     open={isEditing}
-                    onClose={() => setIsEditing(false)}
+                    onClose={() => {
+                        setIsEditing(false);
+                        onRefresh(); // ✅ correct
+                    }}
+
                 />
             )}
         </>

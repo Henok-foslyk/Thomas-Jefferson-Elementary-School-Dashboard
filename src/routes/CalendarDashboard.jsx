@@ -11,6 +11,7 @@ function CalendarDashboard() {
     const [search, setSearch] = useState('');
     const [events, setEvents] = useState([]);
     const [selectedDate, setSelectedDate] = useState(null);
+    const [refreshKey, setRefreshKey] = useState(0);
 
     useEffect(() => {
       const fetchEvents = async () => {
@@ -29,7 +30,7 @@ function CalendarDashboard() {
       };
 
       fetchEvents();
-    }, []);
+    }, [refreshKey]);
 
     return (
         <>
@@ -52,10 +53,12 @@ function CalendarDashboard() {
                 <Grid container spacing={2} justifyContent="center">
                     <Grid size={{ xs: 12, md: 6 }}>
                         <Paper sx={{ padding: 2 }}>
-                            <EventTable 
-                                search={search} 
-                                events={events}
-                                selectedDate={selectedDate}
+                            <EventTable
+                              key={refreshKey}
+                              search={search}
+                              events={events}
+                              selectedDate={selectedDate}
+                              onRefresh={() => setRefreshKey(prev => prev + 1)}
                             />
                         </Paper>
                     </Grid>
