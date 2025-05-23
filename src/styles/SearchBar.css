@@ -1,0 +1,26 @@
+.search-bar-root {
+  margin-bottom: 16px;
+}
+
+.search-bar-root .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: #263f6b;
+  border-width: 2px;
+  border-radius: 10px;
+}
+.search-bar-root .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #0a44a8;
+}
+.search-bar-root .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #0a44a8;
+}
+
+.search-bar-root .MuiOutlinedInput-input {
+  color: #000000;
+}
+
+.search-bar-root .MuiInputLabel-root {
+  color: #263f6b;
+}
+.search-bar-root .MuiInputLabel-root.Mui-focused {
+  color: #263f6b;
+}
