@@ -67,6 +67,7 @@ function CalendarDashboard() {
                             <Calendar 
                                 dates={events.map(e => e.dateStr)} 
                                 onDateSelect={setSelectedDate}
+                                onRefresh={() => setRefreshKey(prev => prev + 1)}
                             />
                         </Paper>
                     </Grid>

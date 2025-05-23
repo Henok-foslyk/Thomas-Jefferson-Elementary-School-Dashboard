@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 import ClearIcon from '@mui/icons-material/Clear';
 import "../../styles/Calendar.css";
 
-export default function Calendar({ dates = [], onDateSelect }) {
+export default function Calendar({ dates = [], onDateSelect, onRefresh }) {
     const [value, setValue] = useState(null);
     const [isSelected, setIsSelected] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
@@ -73,6 +73,7 @@ export default function Calendar({ dates = [], onDateSelect }) {
                 location: location
             });
             handleDialogClose();
+            if (onRefresh) onRefresh();
         } catch (e) {
             console.error("Error adding document: ", e);
         }
