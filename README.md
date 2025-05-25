@@ -4,11 +4,8 @@ Thomas Jefferson Elementary is currently a bit old-fashioned. They have been kee
 
 ## Functionality
 
-Ability to Create/Read/Update/Delete Students, Teachers, Classes and School Events
-
-Ability to add and remove students and teachers from class rosters
-
-Ability to edit grade of certain students in certain rosters
-
-Store these items in Firebase
+- Ability to Create/Read/Update/Delete Students, Teachers, Classes and School Events
+- Ability to add and remove students and teachers from class rosters
+- Ability to edit grade of certain students in certain rosters
+- Store these items in Firebase
 
