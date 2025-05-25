@@ -1,12 +1,11 @@
-# React + Vite
+#*Scenario*
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Thomas Jefferson Elementary is currently a bit old-fashioned. They have been keeping track of their classes, rosters, grades, etc. entirely with paper records up until this point... they have not adapted to the times. But they are growing tired of continually making copies of things, losing critical information from misplacing documents, and all the other issues that come from managing hundreds of children with only paper. You and your group are a team of professional web developers who were recommended to the school for your web development prowess, and have been hired to help create some sort of web application to manage the school’s previously paper-bound information. The school administrators are unfamiliar with web development and React, but they have provided general guidance on the types of information and the functionality that they want out of a web application. Your task is to take the guidance and needs of the elementary school and develop a killer web application dashboard for the school and its administrators. Help bring TJ Elementary into the digital age! 
 
-Currently, two official plugins are available:
+#Functionality 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Ability to Create/Read/Update/Delete Students, Teachers, Classes and School Events
+Ability to add and remove students and teachers from class rosters
+Ability to edit grade of certain students in certain rosters
+Store these items in Firebase
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
